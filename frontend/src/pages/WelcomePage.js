@@ -2,35 +2,34 @@ import { useState } from "react";
 import "./pagesStyle.css";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Form, Alert } from "react-bootstrap";
-// import axios from "axios";
+import axios from "axios";
 
 const WelcomePage = () => {
   const navigate = useNavigate();
   const [prolificId, setProlificId] = useState("");
-  // const [alert, setAlert] = useState(false);
-  // const baseUrl = `/api/questions/${prolificId}`;
+  const [alert, setAlert] = useState(false);
+  const baseUrl = `/api/questions/${prolificId}`;
 
   const onClick = (e) => {
     e.preventDefault();
-    navigate("/questions");
-    // axios
-    //   .get(baseUrl)
-    //   .then((response) => {
-    //     if (response.data.length === 0) {
-    //       setAlert(true);
-    //     } else {
-    //       const todoQuestions = response.data.filter(
-    //         (question) => !question.completed
-    //       );
-    //       console.log(todoQuestions);
-    //       if (todoQuestions.length === 0) {
-    //         navigate("/submission");
-    //       } else {
-    //         navigate("/questions", { state: { data: todoQuestions } });
-    //       }
-    //     }
-    //   })
-    //   .catch((error) => console.log(error));
+    axios
+      .get(baseUrl)
+      .then((response) => {
+        if (response.data.length === 0) {
+          setAlert(true);
+        } else {
+          const todoQuestions = response.data.filter(
+            (question) => !question.completed
+          );
+          console.log(todoQuestions);
+          if (todoQuestions.length === 0) {
+            navigate("/submission");
+          } else {
+            navigate("/questions", { state: { data: todoQuestions } });
+          }
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   const renderAlert = () => {
@@ -87,7 +86,7 @@ const WelcomePage = () => {
           </Card.Text>
         </Card.Body>
       </Card>
-      {/* {renderAlert()} */}
+      {renderAlert()}
       <Button
         variant="outline-primary"
         onClick={onClick}

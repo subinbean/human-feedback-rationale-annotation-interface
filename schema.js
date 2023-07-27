@@ -1,34 +1,28 @@
 const mongoose = require("mongoose");
 
-const claim = new mongoose.Schema({
-  claim_string: String,
-  evidence: [String],
-  support: String,
-  reason_missing_support: String,
-  reliability: String,
-  informativeness: String,
-  worthiness: String,
-  correctness: String,
-  revised_claim: String,
-  revised_evidence: String,
+const rationale = new mongoose.Schema({
+  rationale_string: String,
+  rationale_format: String,
+  predicted_answer: String,
+  sufficiency: String,
+  faithfulness: String,
+  nl_feedback: String,
+  feedback_ease: String,
+  interpretability: String,
+  trustworthiness: String,
+  time_spent: Number,
 });
 
 const question = new mongoose.Schema({
   completed: Boolean,
-  question_string: String,
-  answer_string: String,
-  attribution: [String],
-  answer_origin_model: String,
+  data_source: String,
+  context: String,
+  question: String,
+  reference_answer: String,
+  reference_wrong: String,
   annotator_id: String,
-  metadata: {
-    question_type: String,
-    field: String,
-    specific_field: String,
-  },
-  claims: [claim],
-  usefulness: String,
-  revised_answer: String,
-  time_spent: Number,
+  comments: String,
+  rationales: [rationale],
 });
 
-module.exports = mongoose.model("Question", question, "expertqa-stage2-0710");
+module.exports = mongoose.model("Question", question, "devtest");
