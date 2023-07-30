@@ -2,7 +2,6 @@ import Textbox from "./Textbox";
 import { Alert } from "react-bootstrap";
 
 const ContextQuestion = (props) => {
-    console.log(props.context);
     return (
         <div>
             <Alert

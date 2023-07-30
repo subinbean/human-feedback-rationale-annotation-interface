@@ -17,6 +17,7 @@ const AnnotationPage = (props) => {
     const emptyRationale = {
         sufficiency: "",
         faithfulness: "",
+        predicted_answer_correct: false,
         nl_feedback_error: "",
         nl_feedback_fix: "",
         feedback_ease: "",
@@ -102,14 +103,8 @@ const AnnotationPage = (props) => {
                 //   reliability: "Reliability of Source",
                 //   worthiness: "Worthiness",
                 // };
-                // for (var field in claimAnnotation) {
-                //   if (claimAnnotation[field] === "") {
-                //     if (
-                //       field === "reason_missing_support" &&
-                //       claimAnnotation.support !== "Partial"
-                //     ) {
-                //       continue;
-                //     }
+                // for (var field in rationaleAnnotation) {
+                //   if (rationaleAnnotation[field] === "") {
                 //     new_array.push(mapping[field]);
                 //   }
                 // }
@@ -119,7 +114,7 @@ const AnnotationPage = (props) => {
                 // }
                 // setMissingFields([]);
 
-                // // console.log(claimAnnotation);
+                // console.log(claimAnnotation);
 
                 // axios.interceptors.request.use((request) => {
                 //   //   console.log("Starting Request", JSON.stringify(request, null, 2));
@@ -147,9 +142,8 @@ const AnnotationPage = (props) => {
                 );
                 element.scrollIntoView({ behavior: "smooth" });
                 setCurrentRationale(currentRationale + 1);
-                // setClaimAnnotation(emptyClaim);
-                // console.log(revisedClaims)
-                // console.log(revisedEvidences)
+                setRationaleAnnotation(emptyRationale);
+                console.log(rationaleAnnotation);
             };
         }
         // submit question
@@ -245,14 +239,6 @@ const AnnotationPage = (props) => {
         }
     };
 
-    // const answerChange = (event) => {
-    //   const newState = {
-    //     ...questionAnnotation,
-    //   };
-    //   newState["revised_answer"] = event.target.value;
-    //   setQuestionAnnotation(newState);
-    // };
-
     const renderRationaleAnswer = () => {
         return (
             <div id="claim-evidence-section">
@@ -294,7 +280,7 @@ const AnnotationPage = (props) => {
                         data[currentQuestion].rationales[currentRationale]
                             .predicted_answer
                     }
-                    currentClaim={currentRationale}
+                    currentRationale={currentRationale}
                     rationaleAnnotation={rationaleAnnotation}
                     setRationaleAnnotation={setRationaleAnnotation}
                 />
