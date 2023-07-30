@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 // MongoDB Connection
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGODB_URI);
@@ -14,8 +15,8 @@ const Question = require("./schema.js");
 
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
+    console.log(req.path, req.method);
+    next();
 });
 app.use(cors());
 app.use(express.static("build"));
@@ -27,22 +28,21 @@ app.use(express.static("build"));
 //     })
 // })
 
-// // route redirection for react router
-// app.get('/questions', (request, response) => {
-//     response.sendFile(path.join(__dirname, '/build/index.html'))
-// })
+// route redirection for react router
+app.get("/questions", (request, response) => {
+    response.sendFile(path.join(__dirname, "/build/index.html"));
+});
 
 // get all questions and claim data from a specific annotator (given an id)
 app.get("/api/questions/:annotator_id", (request, response) => {
-  console.log("here");
-  Question.find({ annotator_id: request.params.annotator_id })
-    .then((questions) => {
-      response.json(questions);
-    })
-    .catch((error) => response.json(error));
+    Question.find({ annotator_id: request.params.annotator_id })
+        .then((questions) => {
+            response.json(questions);
+        })
+        .catch((error) => response.json(error));
 });
 
-// // annotate question
+// // complete question
 // app.patch('/api/annotate/question/:question_id', (request, response) => {
 //     const body = request.body
 //     Question.findByIdAndUpdate(request.params.question_id, {$set: {'completed' : body.completed, 'usefulness' : body.usefulness, 'revised_answer': body.revised_answer, 'time_spent': body.time_spent}}).then(question => {
@@ -60,5 +60,5 @@ app.get("/api/questions/:annotator_id", (request, response) => {
 // })
 
 app.listen(PORT, () => {
-  console.log("Listening on port", PORT);
+    console.log("Listening on port", PORT);
 });
