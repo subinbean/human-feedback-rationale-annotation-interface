@@ -50,14 +50,30 @@ app.get("/api/questions/:annotator_id", (request, response) => {
 //     }).catch(error => response.json(error))
 // })
 
-// // annotate claim
-// app.patch('/api/annotate/question/:question_id/claim/:claim_id', (request, response) => {
-//     const key = `claims.${request.params.claim_id}`
-//     const body = request.body
-//     Question.findByIdAndUpdate(request.params.question_id, {$set: {[key + '.support']: body.support, [key + '.reason_missing_support']: body.reason_missing_support, [key + '.informativeness']: body.informativeness, [key + '.correctness']: body.correctness, [key + '.reliability']: body.reliability, [key + '.worthiness']: body.worthiness, [key + '.revised_claim'] : body.revised_claim, [key + '.revised_evidence']: body.revised_evidence}}).then(question => {
-//         response.json(question)
-//     }).catch(error => response.json(error))
-// })
+// annotate claim
+app.patch(
+    "/api/annotate/question/:question_id/rationale/:rationale_id",
+    (request, response) => {
+        const key = `rationales.${request.params.rationale_id}`;
+        const body = request.body;
+        Question.findByIdAndUpdate(request.params.question_id, {
+            $set: {
+                [key + ".sufficiency"]: body.sufficiency,
+                [key + ".faithfulness"]: body.faithfulness,
+                [key + ".predicted_answer_correct"]:
+                    body.predicted_answer_correct,
+                [key + ".nl_feedback_error"]: body.nl_feedback_error,
+                [key + ".nl_feedback_fix"]: body.nl_feedback_fix,
+                [key + ".feedback_ease"]: body.feedback_ease,
+                [key + ".time_taken"]: body.time_taken,
+            },
+        })
+            .then((question) => {
+                response.json(question);
+            })
+            .catch((error) => response.json(error));
+    }
+);
 
 app.listen(PORT, () => {
     console.log("Listening on port", PORT);
