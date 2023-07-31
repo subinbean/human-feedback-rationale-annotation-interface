@@ -1,7 +1,7 @@
 import Textbox from "./Textbox";
 import Likert from "./Likert";
 import Answerbox from "./Answerbox";
-import { Alert, Card, Form } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import "./componentStyle.css";
 
 const RationaleAnswer = (props) => {
@@ -136,7 +136,7 @@ const RationaleAnswer = (props) => {
                 </p>
             </Alert>
             <Likert
-                title="Choice"
+                title="Is the predicted answer correct?"
                 options={["Agree", "Disagree"]}
                 toChange="predicted_answer_correct"
                 state={props.rationaleAnnotation}

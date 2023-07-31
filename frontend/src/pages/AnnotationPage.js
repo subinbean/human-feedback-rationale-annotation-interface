@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import ContextQuestion from "../components/ContextQuestion";
 import "./pagesStyle.css";
 import RationaleAnswer from "../components/RationaleAnswer";
-import { Button, Alert, ProgressBar, Card, Form } from "react-bootstrap";
+import { Button, Alert, ProgressBar } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 const AnnotationPage = (props) => {
     const navigate = useNavigate();
@@ -34,10 +34,7 @@ const AnnotationPage = (props) => {
     const buttonInstructions = () => {
         if (currentRationale < data[currentQuestion].rationales.length - 1) {
             return <div> Move onto the next rationale below! </div>;
-        } else if (
-            currentRationale === data[currentQuestion].rationales.length - 1 &&
-            currentQuestion < data.length - 1
-        ) {
+        } else if (currentQuestion < data.length - 1) {
             return (
                 <div>
                     {" "}
@@ -89,111 +86,68 @@ const AnnotationPage = (props) => {
         }
     };
 
+    const submitRationale = () => {
+        // validation logic
+        const new_array = [];
+        const mapping = {
+            sufficiency: "Sufficiency",
+            faithfulness: "Faithfulness",
+            predicted_answer_correct: "Is the predicted answer right?",
+            nl_feedback_error: "Feedback for Rationale: Error ",
+            nl_feedback_fix: "Feedback for Rationale: Fixes",
+            feedback_ease: "Ease of Providing Feedback",
+        };
+        for (var field in rationaleAnnotation) {
+            if (rationaleAnnotation[field] === "") {
+                new_array.push(mapping[field]);
+            }
+        }
+        setMissingFields(new_array);
+        if (new_array.length > 0) {
+            return;
+        }
+
+        console.log(rationaleAnnotation);
+
+        const endTime = new Date();
+        // api call
+        axios
+            .patch(
+                `/api/annotate/question/${data[currentQuestion]._id}/rationale/${currentRationale}`,
+                {
+                    ...rationaleAnnotation,
+                    time_taken: endTime - seconds,
+                }
+            )
+            .then((response) => {
+                // console.log(response);
+            })
+            .catch((error) => console.log(error));
+
+        // rescroll & state updates
+        setSeconds(endTime);
+        setRationaleAnnotation(emptyRationale);
+    };
+
     const buttonAction = () => {
         // submit claim
         if (currentRationale < data[currentQuestion].rationales.length - 1) {
             return () => {
-                // // validation logic
-                // const new_array = [];
-                // const mapping = {
-                //   support: "Supported",
-                //   reason_missing_support: "Reason for partial support",
-                //   informativeness: "Informative",
-                //   correctness: "Correctness",
-                //   reliability: "Reliability of Source",
-                //   worthiness: "Worthiness",
-                // };
-                // for (var field in rationaleAnnotation) {
-                //   if (rationaleAnnotation[field] === "") {
-                //     new_array.push(mapping[field]);
-                //   }
-                // }
-                // setMissingFields(new_array);
-                // if (new_array.length > 0) {
-                //   return () => {};
-                // }
-                // setMissingFields([]);
-
-                // console.log(claimAnnotation);
-
-                // axios.interceptors.request.use((request) => {
-                //   //   console.log("Starting Request", JSON.stringify(request, null, 2));
-                //   return request;
-                // });
-
-                // // api call
-                // axios
-                //   .patch(
-                //     `/api/annotate/question/${data[currentQuestion]._id}/claim/${currentClaim}`,
-                //     {
-                //       ...claimAnnotation,
-                //       revised_claim: revisedClaims[currentClaim],
-                //       revised_evidence: revisedEvidences[currentClaim],
-                //     }
-                //   )
-                //   .then((response) => {
-                //     // console.log(response);
-                //   })
-                //   .catch((error) => console.log(error));
-
-                // rescroll & state updates
+                submitRationale();
+                setCurrentRationale(currentRationale + 1);
                 const element = document.getElementById(
-                    "claim-evidence-section"
+                    "rationale-answer-section"
                 );
                 element.scrollIntoView({ behavior: "smooth" });
-                setCurrentRationale(currentRationale + 1);
-                setRationaleAnnotation(emptyRationale);
-                console.log(rationaleAnnotation);
             };
         }
         // submit question
         else {
             if (currentQuestion < data.length - 1) {
                 return () => {
-                    // // validation logic
-                    // if (questionAnnotation.usefulness === "") {
-                    //   setMissingFields(missingFields.concat("Usefulness"));
-                    //   return () => {};
-                    // }
-                    // if (missingFields.length > 0) {
-                    //   setMissingFields([]);
-                    // }
-
-                    // // console.log(questionAnnotation)
-
-                    // // api call
-                    // const revisedAnswer =
-                    //   questionAnnotation.revised_answer === ""
-                    //     ? "<Answer>\n\n" +
-                    //       revisedClaims.join("\n") +
-                    //       "\n\n<Evidences>\n\n" +
-                    //       revisedEvidences.join("\n")
-                    //     : questionAnnotation.revised_answer;
-                    // const endTime = new Date();
-
-                    // axios
-                    //   .patch(`/api/annotate/question/${data[currentQuestion]._id}`, {
-                    //     completed: true,
-                    //     usefulness: questionAnnotation.usefulness,
-                    //     revised_answer: revisedAnswer,
-                    //     time_spent: endTime - seconds,
-                    //   })
-                    //   .then((response) => {
-                    //     // console.log(response)
-                    //   })
-                    //   .catch((error) => console.log(error));
-
-                    // // rescroll & state updates
-                    // setSeconds(endTime);
+                    submitRationale();
+                    // rescroll & state updates
                     setCurrentRationale(0);
-                    // setRevisedClaims(
-                    //   data[currentQuestion + 1].claims.map((claim) => claim.claim_string)
-                    // );
-                    // setRevisedEvidences(
-                    //   data[currentQuestion + 1].claims.map((claim) =>
-                    //     claim.evidence.join("\n\n")
-                    //   )
-                    // );
                     setCurrentQuestion(currentQuestion + 1);
                     window.scrollTo(0, 0);
                 };
@@ -201,38 +155,7 @@ const AnnotationPage = (props) => {
             // submit final question
             else {
                 return () => {
-                    // // validation logic
-                    // if (questionAnnotation.usefulness === "") {
-                    //   setMissingFields(missingFields.concat("Usefulness"));
-                    //   return () => {};
-                    // }
-                    // if (missingFields.length > 0) {
-                    //   setMissingFields([]);
-                    // }
-
-                    // // api call
-                    // const revisedAnswer =
-                    //   questionAnnotation.revised_answer === ""
-                    //     ? "<Answer>\n\n" +
-                    //       revisedClaims.join("\n") +
-                    //       "\n\n<Evidences>\n\n" +
-                    //       revisedEvidences.join("\n")
-                    //     : questionAnnotation.revised_answer;
-                    // const endTime = new Date();
-                    // // console.log(endTime - seconds)
-
-                    // axios
-                    //   .patch(`/api/annotate/question/${data[currentQuestion]._id}`, {
-                    //     completed: true,
-                    //     usefulness: questionAnnotation.usefulness,
-                    //     revised_answer: revisedAnswer,
-                    //     time_spent: endTime - seconds,
-                    //   })
-                    //   .then((response) => {
-                    //     // console.log(response)
-                    //   })
-                    //   .catch((error) => console.log(error));
-
+                    submitRationale();
                     navigate("/submission");
                 };
             }
@@ -241,7 +164,7 @@ const AnnotationPage = (props) => {
 
     const renderRationaleAnswer = () => {
         return (
-            <div id="claim-evidence-section">
+            <div id="rationale-answer-section">
                 <Alert
                     style={{
                         width: "40rem",
