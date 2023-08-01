@@ -198,6 +198,10 @@ const AnnotationPage = (props) => {
                         data[currentQuestion].rationales[currentRationale]
                             .rationale_string
                     }
+                    rationale_format={
+                        data[currentQuestion].rationales[currentRationale]
+                            .rationale_format
+                    }
                     correct_answer={data[currentQuestion].reference_answer}
                     predicted_answer={
                         data[currentQuestion].rationales[currentRationale]

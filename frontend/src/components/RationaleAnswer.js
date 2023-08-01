@@ -5,31 +5,13 @@ import { Alert } from "react-bootstrap";
 import "./componentStyle.css";
 
 const RationaleAnswer = (props) => {
-    // const reviseClaim = (text) => {
-    //   const newClaim = props.revisedClaims.map((c, i) => {
-    //     if (i === props.currentClaim) {
-    //       return text.target.value;
-    //     } else {
-    //       return c;
-    //     }
-    //   });
-    //   props.setRevisedClaims(newClaim);
-    // };
-
-    // const reviseEvidence = (text) => {
-    //   const newEvidence = props.revisedEvidences.map((c, i) => {
-    //     if (i === props.currentClaim) {
-    //       return text.target.value;
-    //     } else {
-    //       return c;
-    //     }
-    //   });
-    //   props.setRevisedEvidences(newEvidence);
-    // };
-
     return (
         <div>
-            <Textbox title="Rationale" text={props.rationale} />
+            <Textbox
+                title="Rationale"
+                text={props.rationale}
+                format={props.rationale_format}
+            />
             <Textbox title="Correct Answer" text={props.correct_answer} />
             <Textbox title="Predicted Answer" text={props.predicted_answer} />
             <Alert
@@ -215,75 +197,6 @@ const RationaleAnswer = (props) => {
                 state={props.rationaleAnnotation}
                 setState={props.setRationaleAnnotation}
             />
-            {/* <Alert style={{ width: "40rem", marginTop: "20px", textAlign: "left" }}>
-        4) <b> Claim Revision: </b> Please edit the above claim and evidences to
-        ensure that the claim is <b> factually correct </b> and{" "}
-        <b> the given references support the claim. </b> Feel free to add,
-        change, or remove any text in the claim and remove any irrelevant
-        evidences. <br></br>
-        <br></br> Note: If the claim is not informative, simply delete the text
-        in the revise claim textbox. If the evidence is incorrect or
-        insufficient, remove the evidence. You do not need to replace incorrect
-        / insufficient evidence with correct evidences.
-      </Alert>
-      <Card style={{ width: "40rem", marginTop: "20px", textAlign: "left" }}>
-        <Card.Body>
-          <Card.Title>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              {"Revise claim below:"}
-              <div
-                style={{ color: "red", marginLeft: "3px", fontSize: "17px" }}
-              >
-                {" "}
-                *{" "}
-              </div>
-            </div>
-          </Card.Title>
-          <Card.Text>
-            <Form style={{ marginTop: "21px", width: "400px" }}>
-              <Form.Group className="mb-3">
-                <div key={props.claim}>
-                  <Form.Control
-                    style={{ height: "200px", width: "600px" }}
-                    as="textarea"
-                    defaultValue={props.claim}
-                    onChange={reviseClaim}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: "40rem", marginTop: "20px", textAlign: "left" }}>
-        <Card.Body>
-          <Card.Title>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              {"Revise evidence below:"}
-              <div
-                style={{ color: "red", marginLeft: "3px", fontSize: "17px" }}
-              >
-                {" "}
-                *{" "}
-              </div>
-            </div>
-          </Card.Title>
-          <Card.Text>
-            <Form style={{ marginTop: "21px", width: "400px" }}>
-              <Form.Group className="mb-3">
-                <div key={props.claim}>
-                  <Form.Control
-                    style={{ height: "500px", width: "600px" }}
-                    as="textarea"
-                    defaultValue={props.evidence.join("\n\n")}
-                    onChange={reviseEvidence}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Card.Text>
-        </Card.Body>
-      </Card> */}
         </div>
     );
 };
