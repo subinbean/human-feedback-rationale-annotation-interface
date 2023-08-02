@@ -1,12 +1,50 @@
 import Textbox from "./Textbox";
 import Likert from "./Likert";
 import Answerbox from "./Answerbox";
-import { Alert } from "react-bootstrap";
+import { useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import "./componentStyle.css";
 
+const showRationaleExamples = () => {
+    return (
+        <Alert
+            style={{
+                width: "40rem",
+                marginTop: "20px",
+                textAlign: "left",
+            }}>
+            <b>Markup-And-Mask:</b> A set of extracted sentences from the
+            context which are additionally marked up with what pronouns and
+            ambiguous phrases refer to, in square brackets. etc.etc. too tired
+            to type anymore
+        </Alert>
+    );
+};
+
 const RationaleAnswer = (props) => {
+    const [showExample, setShowExample] = useState(false);
+    const [hideFeedback, setHideFeedback] = useState(false);
+
     return (
         <div>
+            <Alert
+                style={{
+                    width: "40rem",
+                    marginTop: "20px",
+                    textAlign: "left",
+                }}>
+                <p>
+                    Note that rationales can be presented to you in different
+                    formats (the accompanying examples are all sufficient and
+                    faithful to the context):
+                </p>
+                <Button
+                    variant="primary"
+                    onClick={() => setShowExample(!showExample)}>
+                    {showExample ? <b>Hide Example </b> : <b> Show Example</b>}
+                </Button>
+            </Alert>
+            {showExample ? showRationaleExamples() : <></>}
             <Textbox
                 title="Rationale"
                 text={props.rationale}
@@ -112,8 +150,8 @@ const RationaleAnswer = (props) => {
                 <p>
                     <b>
                         {" "}
-                        I do not agree with the Correct Answer and think that
-                        the Predicted Answer is correct.{" "}
+                        Insert something here to tell users about the disabling
+                        thing{" "}
                     </b>
                 </p>
             </Alert>
@@ -123,6 +161,8 @@ const RationaleAnswer = (props) => {
                 toChange="predicted_answer_correct"
                 state={props.rationaleAnnotation}
                 setState={props.setRationaleAnnotation}
+                hideFeedback={hideFeedback}
+                setHideFeedback={setHideFeedback}
             />
             <Alert
                 style={{

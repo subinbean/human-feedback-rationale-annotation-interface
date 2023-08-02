@@ -260,9 +260,15 @@ const AnnotationPage = (props) => {
                 />
                 <p>
                     {" "}
-                    Make sure to <b> follow the instructions carefully </b> and
-                    submit all the questions! If an <b>error</b> occurs in the
-                    interface, just click on the link again and provide your ID.{" "}
+                    Make sure to{" "}
+                    <b>
+                        {" "}
+                        follow the instructions carefully (
+                        <i>denoted in blue boxes</i>){" "}
+                    </b>{" "}
+                    and submit all the questions! If an <b>error</b> occurs in
+                    the interface, just click on the link again and provide your
+                    ID.{" "}
                 </p>
             </Alert>
             <ContextQuestion
