@@ -54,7 +54,7 @@ const WelcomePage = () => {
     return (
         <div className="welcome">
             <Card
-                style={{ width: "40rem", height: "29rem", marginTop: "12rem" }}>
+                style={{ width: "40rem", height: "27rem", marginTop: "12rem" }}>
                 <Card.Body>
                     <Card.Title
                         style={{ textAlign: "center", marginTop: "1rem" }}>
@@ -75,12 +75,11 @@ const WelcomePage = () => {
                             group of researchers at the University of
                             Pennsylvania conducting a study to understand how to
                             present answers from AI systems / language models to
-                            end users, such that they are interpretable,
-                            trustworthy, and easy to provide human feedback to.
-                            We are inviting participants who are experts in the
-                            medicine / healthcare fields and are interested in
-                            helping build more reliable AI systems that can
-                            improve through their interactions with users.
+                            end users such that they are interpretable,
+                            trustworthy, and easy to repair through human
+                            feedback. We are inviting participants who are
+                            interested in helping build more reliable AI systems
+                            that can improve through user interactions.
                         </p>
                         <p style={{ marginTop: "3rem" }}>
                             Please enter your prolific ID down below to begin

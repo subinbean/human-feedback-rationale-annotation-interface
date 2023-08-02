@@ -50,7 +50,9 @@ const Textbox = (props) => {
                             </div>
                             <div
                                 dangerouslySetInnerHTML={{
-                                    __html: m_parsed[i],
+                                    __html:
+                                        "<b> Sentence from context: </b>" +
+                                        m_parsed[i],
                                 }}
                             />
                         </div>

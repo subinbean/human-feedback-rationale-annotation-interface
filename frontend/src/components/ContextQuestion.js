@@ -19,7 +19,7 @@ const showExampleText = () => {
                         Amy went to the supermarket and bought 3 apples and 2
                         pears. She then looked for some bread and cheese. She
                         could not find bread but found herself some cheese. Just
-                        before getting to the checkout line, she picked up a
+                        before getting to the checkout line, she bought a
                         watermelon.
                     </i>
                 </p>
@@ -33,12 +33,12 @@ const showExampleText = () => {
                 </p>
                 <p>
                     An AI model answering this question will predict an answer
-                    as well as a rationale, which is essentially an explanation
-                    of how the model found that answer. In this study, we will
-                    focus on instances where the AI model gave incorrect
+                    as well as generate a <b>rationale</b>, which outlines the
+                    process of how the model found that answer. In this study,
+                    we will focus on instances where the AI model gave incorrect
                     answers. For example, an AI model might predict an{" "}
-                    <b>incorrect answer</b> as <b>2</b> (which is incorrect),
-                    and a <b>rationale</b> as:
+                    <b>incorrect answer</b> as <b>2</b>, and a <b>rationale</b>{" "}
+                    as:
                     <ul>
                         <li>
                             {" "}
@@ -52,52 +52,30 @@ const showExampleText = () => {
                     its own to answer the question, as well as whether it is
                     faithful to the information in the context. In the above
                     example, the rationale is <b>entirely insufficient</b>{" "}
-                    because it doesn’t contain any information about which
-                    fruits Amy bought which means one cannot determine the
+                    because it <b>doesn’t</b> contain any information about
+                    which fruits Amy bought which means one cannot determine the
                     answer to the question with the rationale alone. On the
                     other hand, the rationale is <b>completely accurate</b> as
-                    the information in the rationale is truthful based on the
-                    context.
+                    the information in the rationale is <b>truthful</b> based on
+                    the context.
                 </p>
                 <p>
-                    Next, you will need to provide feedback for this rationale
-                    that will help the AI model revise it. The feedback should
-                    first 1){" "}
-                    <b>
-                        localize the step in which the error(s) occur, and
-                        describe that error
-                    </b>{" "}
-                    and 2) <b>provide an actionable suggestion</b>
-                    to fix the error.
-                </p>
-                <p>
-                    For the above example, the feedback could say: <br></br>-
-                    <b>Localization and description of error</b>:{" "}
-                    <i>
-                        In step 1, the rationale does not extract information
-                        from the context relevant to answering the question
-                        about how many fruits Amy bought.
-                    </i>{" "}
-                    <br></br>- <b>Actionable suggestion</b>:{" "}
-                    <i>
-                        The rationale needs to find how many apples, pears and
-                        watermelons Amy bought at the supermarket and sum them
-                        to find the total number of fruits she bought.
-                    </i>
+                    After that, you will be asked to give <b>feedback</b> about
+                    the rationale. More on that later in the study.
                 </p>
             </div>
             <p>
                 {" "}
-                That is it for the example! If you wish to hide the example,
+                That's it for the example! If you wish to hide the example,
                 scroll up to the button you clicked before. If you wish to see
-                the example again, you can always click the button to show
-                example :)
+                the example again, you can always click the button again to
+                "Show Example" :)
             </p>
         </Alert>
     );
 };
 const ContextQuestion = (props) => {
-    const [showExample, setShowExample] = useState(false);
+    const [showExample, setShowExample] = useState(true);
 
     return (
         <div>
@@ -109,7 +87,7 @@ const ContextQuestion = (props) => {
                 }}>
                 <p>
                     In this task, you will be looking at a context (text
-                    snippet), a question answer pair on the context, and{" "}
+                    snippet), a question answer pair based on the context, and{" "}
                     <b>incorrect answers generated by an AI model</b> to the
                     question. You will be asked to analyze what went wrong, as
                     well as give feedback to the AI model. <br></br>{" "}
@@ -117,21 +95,22 @@ const ContextQuestion = (props) => {
                 <p>
                     <b>All answers are generated based on a rationale</b>, which
                     is essentially a method that the AI model used to get to the
-                    answer. We will ask you to <b>evaluate this rationale</b>.
-                    Specifically, you will be presented with the following
-                    input:{" "}
+                    answer. You will be presented with{" "}
+                    <b>multiple rationales</b> along with their corresponding
+                    generated answers. We will ask you to evaluate{" "}
+                    <b>each rationale</b>. Specifically, you will be presented
+                    with the following input:{" "}
                 </p>
                 <p>
                     <ul>
                         <li>
-                            a snippet of text from a scientific article as the{" "}
-                            <b>context</b>
+                            a snippet of text as the <b>context</b>
                         </li>
                         <li>
                             a <b>question</b> based on this context
                         </li>
                         <li>
-                            the reference <b>correct answer</b> for the question
+                            the <b>reference correct answer</b> for the question
                         </li>
                         <li>
                             <b>
@@ -141,8 +120,8 @@ const ContextQuestion = (props) => {
                             from the AI model
                         </li>
                         <li>
-                            <b>rationales</b> based on the context that is used
-                            by the model to solve the question
+                            <b>rationales</b> based on the context generated by
+                            the model to solve the question
                         </li>
                     </ul>
                 </p>
@@ -158,7 +137,7 @@ const ContextQuestion = (props) => {
                     satisfies these two criteria. Finally, you will need to
                     provide <b> textual feedback for the rationale. </b>
                 </p>
-                <p>
+                <p style={{ color: "green" }}>
                     **
                     <b>
                         Here is an example of what you might see--make sure you

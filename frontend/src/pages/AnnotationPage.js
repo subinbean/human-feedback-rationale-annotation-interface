@@ -17,7 +17,7 @@ const AnnotationPage = (props) => {
     const emptyRationale = {
         sufficiency: "",
         faithfulness: "",
-        predicted_answer_correct: false,
+        predicted_answer_correct: "No",
         nl_feedback_error: "",
         nl_feedback_fix: "",
         feedback_ease: "",
@@ -58,7 +58,7 @@ const AnnotationPage = (props) => {
                 <Button
                     variant="outline-primary"
                     style={{ marginLeft: "520px" }}
-                    onClick={buttonAction()}>
+                    onClick={buttonAction}>
                     {" "}
                     Submit rationale{" "}
                 </Button>
@@ -68,7 +68,7 @@ const AnnotationPage = (props) => {
                 <Button
                     variant="outline-primary"
                     style={{ marginLeft: "495px" }}
-                    onClick={buttonAction()}>
+                    onClick={buttonAction}>
                     {" "}
                     Submit question{" "}
                 </Button>
@@ -78,7 +78,7 @@ const AnnotationPage = (props) => {
                 <Button
                     variant="outline-primary"
                     style={{ marginLeft: "390px" }}
-                    onClick={buttonAction()}>
+                    onClick={buttonAction}>
                     {" "}
                     Submit question and finish task{" "}
                 </Button>
@@ -86,18 +86,27 @@ const AnnotationPage = (props) => {
         }
     };
 
-    const submitRationale = () => {
+    const buttonAction = () => {
         // validation logic
         const new_array = [];
         const mapping = {
             sufficiency: "Sufficiency",
             faithfulness: "Faithfulness",
             predicted_answer_correct: "Is the predicted answer right?",
-            nl_feedback_error: "Feedback for Rationale: Error ",
-            nl_feedback_fix: "Feedback for Rationale: Fixes",
+            nl_feedback_error: "Localization and description of error",
+            nl_feedback_fix: "Actionable suggestion",
             feedback_ease: "Ease of Providing Feedback",
         };
         for (var field in rationaleAnnotation) {
+            if (rationaleAnnotation["predicted_answer_correct"] === "Yes") {
+                if (
+                    field === "nl_feedback_error" ||
+                    field === "nl_feedback_fix" ||
+                    field === "feedback_ease"
+                ) {
+                    continue;
+                }
+            }
             if (rationaleAnnotation[field] === "") {
                 new_array.push(mapping[field]);
             }
@@ -127,37 +136,27 @@ const AnnotationPage = (props) => {
         // rescroll & state updates
         setSeconds(endTime);
         setRationaleAnnotation(emptyRationale);
+        updateStateOnSubmission();
     };
 
-    const buttonAction = () => {
+    const updateStateOnSubmission = () => {
         // submit claim
         if (currentRationale < data[currentQuestion].rationales.length - 1) {
-            return () => {
-                submitRationale();
-                setCurrentRationale(currentRationale + 1);
-                const element = document.getElementById(
-                    "rationale-answer-section"
-                );
-                element.scrollIntoView({ behavior: "smooth" });
-            };
+            setCurrentRationale(currentRationale + 1);
+            const element = document.getElementById("rationale-answer-section");
+            element.scrollIntoView({ behavior: "smooth" });
         }
         // submit question
         else {
             if (currentQuestion < data.length - 1) {
-                return () => {
-                    submitRationale();
-                    // rescroll & state updates
-                    setCurrentRationale(0);
-                    setCurrentQuestion(currentQuestion + 1);
-                    window.scrollTo(0, 0);
-                };
+                // rescroll & state updates
+                setCurrentRationale(0);
+                setCurrentQuestion(currentQuestion + 1);
+                window.scrollTo(0, 0);
             }
             // submit final question
             else {
-                return () => {
-                    submitRationale();
-                    navigate("/submission");
-                };
+                navigate("/submission");
             }
         }
     };
