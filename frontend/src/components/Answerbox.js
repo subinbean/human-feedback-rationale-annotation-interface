@@ -18,7 +18,7 @@ const Answerbox = (props) => {
         );
     };
     return (
-        <Card style={{ width: "40rem", marginTop: "20px", textAlign: "left" }}>
+        <Card style={{ width: "80%", marginTop: "20px", textAlign: "left" }}>
             <Card.Body>
                 <Card.Title>
                     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -27,11 +27,11 @@ const Answerbox = (props) => {
                     </div>
                 </Card.Title>
                 <Card.Text>
-                    <Form style={{ marginTop: "21px", width: "40rem" }}>
+                    <Form style={{ marginTop: "21px", width: "80%" }}>
                         <Form.Group className="mb-3">
                             <Form.Control
                                 as="textarea"
-                                style={{ width: "35rem", height: "200px" }}
+                                style={{ width: "80%", height: "7rem" }}
                                 value={props.state[props.toChange]}
                                 onChange={changeFunction}
                             />

@@ -57,7 +57,7 @@ const AnnotationPage = (props) => {
             return (
                 <Button
                     variant="outline-primary"
-                    style={{ marginLeft: "520px" }}
+                    style={{ marginLeft: "170px" }}
                     onClick={buttonAction}>
                     {" "}
                     Submit rationale{" "}
@@ -67,7 +67,7 @@ const AnnotationPage = (props) => {
             return (
                 <Button
                     variant="outline-primary"
-                    style={{ marginLeft: "495px" }}
+                    style={{ marginLeft: "170px" }}
                     onClick={buttonAction}>
                     {" "}
                     Submit question{" "}
@@ -77,7 +77,7 @@ const AnnotationPage = (props) => {
             return (
                 <Button
                     variant="outline-primary"
-                    style={{ marginLeft: "390px" }}
+                    style={{ marginLeft: "170px" }}
                     onClick={buttonAction}>
                     {" "}
                     Submit question and finish task{" "}
@@ -93,7 +93,7 @@ const AnnotationPage = (props) => {
             sufficiency: "Sufficiency",
             faithfulness: "Faithfulness",
             predicted_answer_correct: "Is the predicted answer right?",
-            nl_feedback_error: "Localization and description of error",
+            nl_feedback_error: "Location and description of error",
             nl_feedback_fix: "Actionable suggestion",
             feedback_ease: "Ease of Providing Feedback",
         };
@@ -166,12 +166,12 @@ const AnnotationPage = (props) => {
             <div id="rationale-answer-section">
                 <Alert
                     style={{
-                        width: "40rem",
+                        width: "80%",
                         marginTop: "20px",
                         textAlign: "left",
                     }}>
                     <p>
-                        You are on <b> question {currentQuestion + 1}</b>. This
+                        You are on <b> Question {currentQuestion + 1}</b>. This
                         question has{" "}
                         <b>
                             {" "}
@@ -209,6 +209,8 @@ const AnnotationPage = (props) => {
                     currentRationale={currentRationale}
                     rationaleAnnotation={rationaleAnnotation}
                     setRationaleAnnotation={setRationaleAnnotation}
+                    context={data[currentQuestion].context}
+                    question={data[currentQuestion].question}
                 />
             </div>
         );
@@ -220,7 +222,7 @@ const AnnotationPage = (props) => {
                 <Alert
                     variant="danger"
                     style={{
-                        width: "40rem",
+                        width: "80%",
                         marginTop: "20px",
                         textAlign: "left",
                     }}>
@@ -236,7 +238,7 @@ const AnnotationPage = (props) => {
         <div align="center">
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
@@ -265,19 +267,15 @@ const AnnotationPage = (props) => {
                         follow the instructions carefully (
                         <i>denoted in blue boxes</i>){" "}
                     </b>{" "}
-                    and submit all the questions! If an <b>error</b> occurs in
-                    the interface, just click on the link again and provide your
-                    ID.{" "}
+                    and submit all questions! If an <b>error</b> occurs in the
+                    interface, just click on the link again and provide your ID.{" "}
                 </p>
             </Alert>
-            <ContextQuestion
-                context={data[currentQuestion].context}
-                question={data[currentQuestion].question}
-            />
+            <ContextQuestion />
             {renderRationaleAnswer()}
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>

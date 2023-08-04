@@ -1,20 +1,24 @@
 .claimEvidence {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
 }
 
 .buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-bottom: 90px;
 }
 
 .welcome {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    min-height: 100%;
 }

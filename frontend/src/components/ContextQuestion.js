@@ -1,16 +1,18 @@
-import Textbox from "./Textbox";
 import { Alert, Button } from "react-bootstrap";
 import { useState } from "react";
 
 const showExampleText = () => {
     return (
-        <Alert
-            style={{
-                width: "40rem",
-                marginTop: "20px",
-                textAlign: "left",
-            }}>
+        // <Alert
+        //     style={{
+        //         width: "80%",
+        //         marginTop: "20px",
+        //         textAlign: "left",
+        //     }}>
+        <div>
             <div>
+                <h4> Example </h4>
+                <br></br>
                 <p>
                     For <b>example</b>, consider this <b>context</b>:
                 </p>
@@ -38,14 +40,14 @@ const showExampleText = () => {
                     we will focus on instances where the AI model gave incorrect
                     answers. For example, an AI model might predict an{" "}
                     <b>incorrect answer</b> as <b>2</b>, and a <b>rationale</b>{" "}
-                    as:
-                    <ul>
-                        <li>
-                            {" "}
-                            <b>Sentence from context with markup:</b> “She{" "}
-                            <b>[Amy]</b> then looked for some bread and cheese.”{" "}
-                        </li>
-                    </ul>
+                    as: <p></p>
+                    <p>
+                        {" "}
+                        <b>Rationale: </b>
+                        <br></br>
+                        <b>Sentence from context with markup:</b> “She{" "}
+                        <b>[Amy]</b> then looked for some bread and cheese.”{" "}
+                    </p>
                 </p>
                 <p>
                     Your task is to label whether the rationale is sufficient on
@@ -71,7 +73,8 @@ const showExampleText = () => {
                 the example again, you can always click the button again to
                 "Show Example" :)
             </p>
-        </Alert>
+        </div>
+        // </Alert>
     );
 };
 const ContextQuestion = (props) => {
@@ -81,7 +84,7 @@ const ContextQuestion = (props) => {
         <div>
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
@@ -96,10 +99,10 @@ const ContextQuestion = (props) => {
                     <b>All answers are generated based on a rationale</b>, which
                     is essentially a method that the AI model used to get to the
                     answer. You will be presented with{" "}
-                    <b>multiple rationales</b> along with their corresponding
-                    generated answers. We will ask you to evaluate{" "}
-                    <b>each rationale</b>. Specifically, you will be presented
-                    with the following input:{" "}
+                    <b>multiple rationale formats</b> along with their
+                    corresponding generated answers. We will ask you to evaluate{" "}
+                    <b>each rationale format</b>. Specifically, you will be
+                    presented with the following input:{" "}
                 </p>
                 <p>
                     <ul>
@@ -149,10 +152,11 @@ const ContextQuestion = (props) => {
                     onClick={() => setShowExample(!showExample)}>
                     {showExample ? <b>Hide Example </b> : <b> Show Example</b>}
                 </Button>
+                <p></p>
+                <br></br>
+                {showExample ? showExampleText() : <></>}
             </Alert>
-            {showExample ? showExampleText() : <></>}
-            <Textbox title="Context" text={props.context} />
-            <Textbox title="Question" text={props.question} />
+            {/* {showExample ? showExampleText() : <></>} */}
         </div>
     );
 };

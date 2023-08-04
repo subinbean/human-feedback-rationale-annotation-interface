@@ -42,7 +42,7 @@ const Textbox = (props) => {
                 const m_result = [];
                 const regex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/;
                 const m_parsed = props.text.split(regex);
-                for (const i in m_parsed) {
+                for (let i = 0; i < m_parsed.length; i++) {
                     m_result.push(
                         <div>
                             <div>
@@ -51,7 +51,9 @@ const Textbox = (props) => {
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html:
-                                        "<b> Sentence from context: </b>" +
+                                        `<b> ${
+                                            i + 1
+                                        }. Sentence from context: </b>` +
                                         m_parsed[i],
                                 }}
                             />
@@ -72,7 +74,7 @@ const Textbox = (props) => {
                                   <div>
                                       <br></br>
                                   </div>
-                                  <b> Sentence from context: </b>
+                                  <b> {i / 2 + 1}. Sentence from context: </b>
                                   {parsed[i]}
                               </div>
                           )
@@ -132,7 +134,7 @@ const Textbox = (props) => {
     };
 
     return (
-        <Card style={{ width: "40rem", marginTop: "20px", textAlign: "left" }}>
+        <Card style={{ width: "80%", marginTop: "20px", textAlign: "left" }}>
             <Card.Body>
                 <Card.Title> {props.title + displayFormatTitle()} </Card.Title>
                 <Card.Text>

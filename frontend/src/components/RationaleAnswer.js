@@ -5,115 +5,221 @@ import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import "./componentStyle.css";
 
-const showRationaleExamples = () => {
-    return (
-        <Alert
-            style={{
-                width: "40rem",
-                marginTop: "20px",
-                textAlign: "left",
-            }}>
-            <p>
-                <h5>Markup and Mask:</h5> A set of extracted sentences from the
-                context which are additionally marked up with what pronouns and
-                ambiguous phrases refer to, in square brackets. <br></br>{" "}
-                <br></br>
-                Example) <br></br>
-                <b>Sentence from context: </b>Amy went to the supermarket and
-                bought 3 apples and 2 pears.” <br></br>{" "}
-                <b>Sentence from context: </b>“Just before getting to the
-                checkout line, she <b>[Amy]</b> picked up a watermelon.”
-            </p>
-            <p>
-                <h5>Annotated Report</h5> A list of extracted phrases from the
-                context and what each phrase indicates. <br></br> <br></br>
-                Example) <br></br>
-                <b>Sentence from context:</b> “bought 3 apples and 2 pears”{" "}
-                <br></br>
-                <b>Annotation:</b>
-                Amy bought 5 fruits at first. <br></br> <br></br>
-                <b>Sentence from context:</b> “she picked up a watermelon”{" "}
-                <br></br>
-                <b>Annotation:</b> Amy bought 1 other fruit.
-            </p>
-            <p>
-                <h5>Procedural:</h5> A step-by-step plan of solving the question
-                where each step can be one of the following operations:
-                <ul>
-                    <li>
-                        Extract-relevant-sentences → extracts sentences from the
-                        context relevant to answering the question)
-                    </li>
-                    <li>
-                        Disambiguate-question-entity (s) → determines the
-                        specific entity or phrase that the phrase s in the
-                        question refers to
-                    </li>
-                    <li>
-                        Disambiguate-plan-entity (s) → determines the specific
-                        entity or phrase that the phrase s in the plan so far
-                        refers to
-                    </li>
-                    <li>
-                        Locate-entity (s) → Answers a subquestion s that is
-                        important to answer the original question
-                    </li>
-                </ul>{" "}
-                Example) <br></br>
-                1) <b>Extract-relevant-sentences:</b> “Amy went to the
-                supermarket and bought 3 apples and 2 pears.”, “Just before
-                getting to the checkout line, she picked up a watermelon.”{" "}
-                <br></br>
-                2)<b> Disambiguate-plan-entity</b> (“she”): “Amy”. <br></br> 3){" "}
-                <b>Locate-entity</b> (“how many fruits did she buy at first?”):
-                “5” <br></br>4) <b>Locate-entity</b> (“how many fruits did she
-                buy before getting to the checkout line?”): 1.
-            </p>
-            <p>
-                <h5>Subquestions</h5> A breakdown of the original question into
-                subquestions that are helpful for answering the original
-                question. <br></br> <br></br>
-                Example) <br></br>
-                <b>Q1: How many apples did Amy buy?</b> <br></br>
-                <br></br>A: 3.<br></br>
-                <br></br> <b>Q2: How many pears did Amy buy?</b> <br></br>
-                <br></br>A: 2. <br></br>
-                <br></br>
-                <b>Q3: Did Amy buy any other fruits?</b> <br></br>
-                <br></br>A: No.
-            </p>
-            <p>
-                <h5>Decision Tree</h5>: A breakdown of the original question
-                into subquestions presented in a tree structure, with Yes / No
-                outcomes for each subquestion. <br></br>
-            </p>
-        </Alert>
-    );
+const showRationaleExamples = (format) => {
+    switch (format) {
+        case "markup_mask":
+            return (
+                <p>
+                    <h4>Markup and Mask:</h4> <br></br>A set of extracted
+                    sentences from the context which are additionally marked up
+                    with what pronouns and ambiguous phrases refer to, in square
+                    brackets. <br></br> <br></br>
+                    <h5> Example </h5>
+                    <b>1. Sentence from context: </b>Amy went to the supermarket
+                    and bought 3 apples and 2 pears.” <br></br>{" "}
+                    <b>2. Sentence from context: </b>“Just before getting to the
+                    checkout line, she <b>[Amy]</b> picked up a watermelon.”
+                </p>
+            );
+        case "annotated_report":
+            return (
+                <p>
+                    <h4>Annotated Report</h4> <br></br>A list of extracted
+                    phrases from the context and what each phrase indicates.{" "}
+                    <br></br> <br></br>
+                    <h5> Example </h5>
+                    <b>1. Sentence from context:</b> “bought 3 apples and 2
+                    pears” <br></br>
+                    <b>Annotation:</b>
+                    Amy bought 5 fruits at first. <br></br> <br></br>
+                    <b>2. Sentence from context:</b> “she picked up a
+                    watermelon” <br></br>
+                    <b>Annotation:</b> Amy bought 1 other fruit.
+                </p>
+            );
+        case "procedure":
+            return (
+                <p>
+                    <h4>Procedural:</h4> <br></br>A step-by-step plan of solving
+                    the question where each step can be one of the following
+                    operations:
+                    <ul>
+                        <li>
+                            Extract-relevant-sentences → extracts sentences from
+                            the context relevant to answering the question)
+                        </li>
+                        <li>
+                            Disambiguate-question-entity (s) → determines the
+                            specific entity or phrase that the phrase s in the
+                            question refers to
+                        </li>
+                        <li>
+                            Disambiguate-plan-entity (s) → determines the
+                            specific entity or phrase that the phrase s in the
+                            plan so far refers to
+                        </li>
+                        <li>
+                            Locate-entity (s) → Answers a subquestion s that is
+                            important to answer the original question
+                        </li>
+                    </ul>{" "}
+                    <h5> Example </h5>
+                    1) <b>Extract-relevant-sentences:</b> “Amy went to the
+                    supermarket and bought 3 apples and 2 pears.”, “Just before
+                    getting to the checkout line, she picked up a watermelon.”{" "}
+                    <br></br>
+                    2)<b> Disambiguate-plan-entity</b> (“she”): “Amy”. <br></br>{" "}
+                    3) <b>Locate-entity</b> (“how many fruits did she buy at
+                    first?”): “5” <br></br>4) <b>Locate-entity</b> (“how many
+                    fruits did she buy before getting to the checkout line?”):
+                    1.
+                </p>
+            );
+        case "subquestions":
+            return (
+                <p>
+                    <h4>Subquestions</h4> <br></br>A breakdown of the original
+                    question into subquestions that are helpful for answering
+                    the original question. <br></br> <br></br>
+                    <h5> Example </h5>
+                    <b>Q1: How many apples did Amy buy?</b> <br></br>
+                    <br></br>A: 3.<br></br>
+                    <br></br> <b>Q2: How many pears did Amy buy?</b> <br></br>
+                    <br></br>A: 2. <br></br>
+                    <br></br>
+                    <b>Q3: Did Amy buy any other fruits?</b> <br></br>
+                    <br></br>A: No.
+                </p>
+            );
+        case "dt":
+            return (
+                <p>
+                    <h4>Decision Tree</h4> <br></br>A breakdown of the original
+                    question into subquestions presented in a tree structure,
+                    with Yes / No outcomes for each subquestion. <br></br>{" "}
+                    <br></br>
+                    <h5> Example </h5>
+                    <ul>
+                        <li>
+                            <b>Start</b>
+                        </li>
+                        <li>
+                            <b>Q1: Does the text mention Amy buying fruits?</b>
+                            <ul>
+                                <li>
+                                    <b>Yes:</b>
+                                    <ul>
+                                        <li>
+                                            <b>
+                                                Q2: Does the text specify the
+                                                number of each type of fruit Amy
+                                                bought?
+                                            </b>
+                                            <ul>
+                                                <li>
+                                                    <b>Yes</b>: 3 apples, 2
+                                                    pears, 1 watermelon
+                                                    <ul>
+                                                        <li>
+                                                            <b>Outcome:</b> Amy
+                                                            bought a total of 6
+                                                            fruits (3 apples + 2
+                                                            pears + 1
+                                                            watermelon)
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <b>No:</b>
+                                                    <ul>
+                                                        <li>
+                                                            <b>Outcome:</b> The
+                                                            text does not
+                                                            provide the specific
+                                                            numbers of each
+                                                            fruit Amy bought.
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <b>No:</b>
+                                    <ul>
+                                        <li>
+                                            <b>Outcome:</b> The text does not
+                                            mention Amy buying any fruit.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <b>End</b>
+                        </li>
+                    </ul>
+                </p>
+            );
+        default:
+            return "";
+    }
 };
 
 const RationaleAnswer = (props) => {
-    const [showExample, setShowExample] = useState(false);
+    const [showExample, setShowExample] = useState(true);
 
     return (
         <div>
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
                 <p>
-                    Note that rationales can be presented to you in different
-                    formats (the accompanying examples are all sufficient and
-                    faithful to the context):
+                    <b style={{ color: "green" }}>
+                        {" "}
+                        **Here is an example explaining the rationale format
+                        that you are <i>currently</i> annotating** <br></br>
+                    </b>{" "}
+                    <br></br>
+                    If you've already read through the example, click on "Hide
+                    Example" to collapse it.{" "}
                 </p>
-                <Button
-                    variant="primary"
-                    onClick={() => setShowExample(!showExample)}>
-                    {showExample ? <b>Hide Example </b> : <b> Show Example</b>}
-                </Button>
+                <p>
+                    <Button
+                        variant="primary"
+                        onClick={() => setShowExample(!showExample)}>
+                        {showExample ? (
+                            <b>Hide Example </b>
+                        ) : (
+                            <b> Show Example</b>
+                        )}
+                    </Button>
+                </p>
+                <br></br>
+                {showExample ? (
+                    <div>{showRationaleExamples(props.rationale_format)}</div>
+                ) : (
+                    <></>
+                )}
             </Alert>
-            {showExample ? showRationaleExamples() : <></>}
+            {/* {showExample ? (
+                <Alert
+                    style={{
+                        width: "80%",
+                        marginTop: "20px",
+                        textAlign: "left",
+                    }}>
+                    {showRationaleExamples(props.rationale_format)}
+                </Alert>
+            ) : (
+                <></>
+            )} */}
+            <Textbox title="Context" text={props.context} />
+            <Textbox title="Question" text={props.question} />
             <Textbox
                 title="Rationale"
                 text={props.rationale}
@@ -129,7 +235,7 @@ const RationaleAnswer = (props) => {
             />
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
@@ -139,26 +245,30 @@ const RationaleAnswer = (props) => {
                 </p>
                 <p>
                     <b>Sufficiency</b>: Is the rationale sufficient to answer
-                    the question? <br></br> The given rationale should contain
-                    enough information to answer the question using the
-                    rationale alone, without using the context. Note that the
-                    rationale may contain inaccuracies in information but could
-                    still contain sufficient information to determine an answer.
+                    the question? <br></br> The given rationale{" "}
+                    <b>
+                        should contain enough information to answer the question
+                        using the rationale alone, without using the context.
+                    </b>{" "}
+                    Note that the rationale may contain inaccuracies in
+                    information but could still contain sufficient information
+                    to determine an answer.
                     <ol type="a">
                         <li>
                             {" "}
-                            Sufficient: The Rationale is{" "}
+                            <b>Sufficient:</b> The Rationale is{" "}
                             <b> entirely sufficient </b> to answer the question.
                         </li>
                         <li>
-                            A bit insufficient: The Rationale contains most of
-                            the information, but misses minor information that
-                            could be useful to answer the question.{" "}
+                            <b>A bit insufficient:</b> The Rationale contains
+                            most of the information, but{" "}
+                            <b>misses minor information</b> that could be useful
+                            to answer the question.{" "}
                         </li>
                         <li>
-                            Entirely insufficient: The Rationale misses key
-                            information from the context, required to answer the
-                            question.
+                            <b>Entirely insufficient:</b> The Rationale{" "}
+                            <b>misses key information</b> from the context,
+                            required to answer the question.
                         </li>
                     </ol>
                 </p>
@@ -176,7 +286,7 @@ const RationaleAnswer = (props) => {
             />
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
@@ -184,27 +294,36 @@ const RationaleAnswer = (props) => {
                     <b>Faithfulness to context:</b> Does the information in the
                     rationale accurately represent information in the context?{" "}
                     <br></br>The given rationale should be faithful to the
-                    context, that is, it should accurately draw conclusions from
-                    the information presented without misrepresenting any
-                    information. Note that we are only judging whether the
-                    rationale is faithful to the context, so not all information
-                    sufficient to answer the question may be present in the
-                    rationale for it to be accurate.
+                    context, that is, it{" "}
+                    <b>
+                        should accurately draw conclusions from the context
+                        without misrepresenting any information.
+                    </b>{" "}
+                    Note that we are only judging whether the rationale is
+                    faithful to the context, so not all information sufficient
+                    to answer the question needs to be present in the rationale
+                    for it to be accurate.
                     <ol type="a">
                         <li>
                             {" "}
-                            Accurate: The Rationale is completely faithful to
-                            the context.
+                            <b>Accurate:</b> The Rationale is{" "}
+                            <b>completely faithful</b> to the context.
                         </li>
                         <li>
-                            A bit inaccurate: The Rationale misrepresents minor
-                            information or makes minor incorrect conclusions
+                            <b>A bit inaccurate:</b> The Rationale{" "}
+                            <b>
+                                misrepresents minor information or makes minor
+                                incorrect conclusions
+                            </b>{" "}
                             from the context.
                         </li>
                         <li>
-                            Very inaccurate: The Rationale misrepresents
-                            significant information or draws incorrect
-                            conclusions from the context.
+                            <b>Very inaccurate:</b> The Rationale{" "}
+                            <b>
+                                misrepresents significant information or draws
+                                incorrect conclusions
+                            </b>{" "}
+                            from the context.
                         </li>
                     </ol>
                 </p>
@@ -218,7 +337,7 @@ const RationaleAnswer = (props) => {
             />
             <Alert
                 style={{
-                    width: "40rem",
+                    width: "80%",
                     marginTop: "20px",
                     textAlign: "left",
                 }}>
@@ -247,23 +366,27 @@ const RationaleAnswer = (props) => {
                 <div>
                     <Alert
                         style={{
-                            width: "40rem",
+                            width: "80%",
                             marginTop: "20px",
                             textAlign: "left",
                         }}>
                         <p>
                             <b>Feedback:</b> Now, you will need to provide
-                            natural language feedback for this rationale that
-                            will help the AI model revise it. his feedback could
-                            target any missing information or any incorrect
-                            information in the rationale. The feedback should
-                            first 1){" "}
+                            natural language feedback for the rationale to help
+                            the AI model revise it. The feedback could target
+                            any missing information or any incorrect information
+                            in the rationale. The feedback should first 1){" "}
                             <b>
-                                localize the step in which the error(s) occur,
-                                and describe that error
+                                locate the step in which the error(s) occurs{" "}
+                                <i>
+                                    (locate the question number / step /
+                                    sentence number depending on the rationale
+                                    format)
+                                </i>
+                                , and describe that error
                             </b>{" "}
-                            and 2) <b>provide an actionable suggestion</b>
-                            to fix the error.
+                            and 2) <b>provide an actionable suggestion</b> to
+                            fix the error.
                         </p>
                         <p>
                             For the above example where: <br></br>
@@ -279,17 +402,16 @@ const RationaleAnswer = (props) => {
                             <br></br> Reference correct answer: 6<br></br>{" "}
                             Predicted answer: 2<br></br> Rationale (Format:
                             Markup and Mask):{" "}
-                            <b>Sentence from context with markup:</b> “She{" "}
+                            <b>1. Sentence from context with markup:</b> “She{" "}
                             <b>[Amy]</b> then looked for some bread and cheese.”{" "}
                         </p>
                         <p>
-                            The feedback could say: <br></br>-
-                            <b>Localization and description of error</b>:{" "}
+                            The feedback could say: <br></br>-{" "}
+                            <b>Location and description of error</b>:{" "}
                             <i>
-                                In step 1, the rationale does not extract
-                                information from the context relevant to
-                                answering the question about how many fruits Amy
-                                bought.
+                                In sentence 1, the information is not relevant
+                                to answering the question about how many fruits
+                                Amy bought.
                             </i>{" "}
                             <br></br>- <b>Actionable suggestion</b>:{" "}
                             <i>
@@ -299,13 +421,15 @@ const RationaleAnswer = (props) => {
                                 number of fruits she bought.
                             </i>
                         </p>
-                        <p>
-                            **Make sure to not include the correct answer in
-                            your feedback explicitly.**
+                        <p style={{ color: "green" }}>
+                            <b>
+                                **Make sure to not include the correct answer in
+                                your feedback explicitly.**
+                            </b>
                         </p>
                     </Alert>
                     <Answerbox
-                        text="Localization and description of error"
+                        text="Location and description of error"
                         state={props.rationaleAnnotation}
                         setState={props.setRationaleAnnotation}
                         toChange="nl_feedback_error"
@@ -318,7 +442,7 @@ const RationaleAnswer = (props) => {
                     />
                     <Alert
                         style={{
-                            width: "40rem",
+                            width: "80%",
                             marginTop: "20px",
                             textAlign: "left",
                         }}>
@@ -329,24 +453,27 @@ const RationaleAnswer = (props) => {
                             </b>{" "}
                             <ol type="a">
                                 <li>
-                                    Very easy: It was straightforward to
-                                    identify the issue with the rationale, and
-                                    provide an actionable suggestion.
+                                    <b>Very easy</b>: It was{" "}
+                                    <b>straightforward</b> to locate / describe
+                                    the error and provide an actionable
+                                    suggestion.
                                 </li>
                                 <li>
-                                    Somewhat easy: It took a bit of effort to
-                                    localize / describe the issue or formulate
-                                    actionable feedback.
+                                    <b>Somewhat easy</b>: It{" "}
+                                    <b>took a bit of effort</b> to locate /
+                                    describe the error or provide an actionable
+                                    suggestion.
                                 </li>
                                 <li>
-                                    Somewhat hard: It was hard to localize /
-                                    describe the issue, or write actionable
-                                    feedback.
+                                    <b>Somewhat hard</b>: It was <b>hard to</b>{" "}
+                                    locate / describe the error or provide an
+                                    actionable suggestion.
                                 </li>
                                 <li>
-                                    Very hard: It took a lot of effort to
-                                    localize / describe the issue and write
-                                    actionable feedback.
+                                    <b>Very hard</b>: It{" "}
+                                    <b>took a lot of effort</b> to locate /
+                                    describe the error and provide an actionable
+                                    suggestion.
                                 </li>
                             </ol>
                         </p>
