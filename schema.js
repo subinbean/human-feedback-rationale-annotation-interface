@@ -26,4 +26,4 @@ const question = new mongoose.Schema({
     rationales: [rationale],
 });
 
-module.exports = mongoose.model("Question", question, "devtest");
+module.exports = mongoose.model("Question", question, "pubmedqa_incorrect");
