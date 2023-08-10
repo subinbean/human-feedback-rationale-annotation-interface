@@ -45,8 +45,8 @@ const showExampleText = () => {
                         {" "}
                         <b>Rationale: </b>
                         <br></br>
-                        <b>Sentence from context with markup:</b> “She{" "}
-                        <b>[Amy]</b> then looked for some bread and cheese.”{" "}
+                        <b>Quote from context with markup:</b> “She <b>[Amy]</b>{" "}
+                        then looked for some bread and cheese.”{" "}
                     </p>
                 </p>
                 <p>
@@ -113,7 +113,24 @@ const ContextQuestion = (props) => {
                             a <b>question</b> based on this context
                         </li>
                         <li>
-                            the <b>reference correct answer</b> for the question
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                }}>
+                                <div>
+                                    the <b> reference correct answer</b>{" "}
+                                </div>
+                                <div
+                                    style={{
+                                        color: "#333333",
+                                        marginLeft: "3px",
+                                        fontSize: "17px",
+                                    }}>
+                                    {" "}
+                                    *{" "}
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <b>
@@ -127,6 +144,13 @@ const ContextQuestion = (props) => {
                             the model to solve the question
                         </li>
                     </ul>
+                </p>
+                <p style={{ color: "#333333" }}>
+                    <i>
+                        * Very rarely, the reference answer might be inaccurate.
+                        If so, continue the study with what you think is the
+                        correct answer
+                    </i>
                 </p>
                 <p>
                     A good rationale needs to be 1){" "}

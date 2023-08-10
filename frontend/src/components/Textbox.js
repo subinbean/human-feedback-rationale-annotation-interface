@@ -53,7 +53,7 @@ const Textbox = (props) => {
                                     __html:
                                         `<b> ${
                                             i + 1
-                                        }. Sentence from context: </b>` +
+                                        }. Quote from context: </b>` +
                                         m_parsed[i],
                                 }}
                             />
@@ -74,7 +74,7 @@ const Textbox = (props) => {
                                   <div>
                                       <br></br>
                                   </div>
-                                  <b> {i / 2 + 1}. Sentence from context: </b>
+                                  <b> {i / 2 + 1}. Quote from context: </b>
                                   {parsed[i]}
                               </div>
                           )

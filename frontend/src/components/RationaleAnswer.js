@@ -15,9 +15,9 @@ const showRationaleExamples = (format) => {
                     with what pronouns and ambiguous phrases refer to, in square
                     brackets. <br></br> <br></br>
                     <h5> Example </h5>
-                    <b>1. Sentence from context: </b>Amy went to the supermarket
+                    <b>1. Quote from context: </b>Amy went to the supermarket
                     and bought 3 apples and 2 pears.” <br></br>{" "}
-                    <b>2. Sentence from context: </b>“Just before getting to the
+                    <b>2. Quote from context: </b>“Just before getting to the
                     checkout line, she <b>[Amy]</b> picked up a watermelon.”
                 </p>
             );
@@ -28,12 +28,12 @@ const showRationaleExamples = (format) => {
                     phrases from the context and what each phrase indicates.{" "}
                     <br></br> <br></br>
                     <h5> Example </h5>
-                    <b>1. Sentence from context:</b> “bought 3 apples and 2
-                    pears” <br></br>
-                    <b>Annotation:</b>
-                    Amy bought 5 fruits at first. <br></br> <br></br>
-                    <b>2. Sentence from context:</b> “she picked up a
-                    watermelon” <br></br>
+                    <b>1. Quote from context:</b> “bought 3 apples and 2 pears”{" "}
+                    <br></br>
+                    <b>Annotation:</b> Amy bought 5 fruits at first. <br></br>{" "}
+                    <br></br>
+                    <b>2. Quote from context:</b> “she picked up a watermelon”{" "}
+                    <br></br>
                     <b>Annotation:</b> Amy bought 1 other fruit.
                 </p>
             );
@@ -379,54 +379,160 @@ const RationaleAnswer = (props) => {
                             <b>
                                 locate the step in which the error(s) occurs{" "}
                                 <i>
-                                    (locate the question number / step /
-                                    sentence number depending on the rationale
-                                    format)
+                                    (locate the step or question number
+                                    depending on the rationale format)
                                 </i>
                                 , and describe that error
                             </b>{" "}
                             and 2) <b>provide an actionable suggestion</b> to
                             fix the error.
                         </p>
+                        <h6 style={{ color: "green" }}>
+                            <b>**Instructions**</b>
+                        </h6>
+                        <ul>
+                            <li>
+                                <b>
+                                    Make sure to not include the correct answer
+                                    in your feedback explicitly.
+                                </b>
+                            </li>
+                            <li>
+                                {" "}
+                                <b>
+                                    Location and description of error feedback
+                                    structure:
+                                </b>{" "}
+                                In [location], the rationale is [the issue]
+                                because [the reason]
+                            </li>
+                            <ul>
+                                <li>
+                                    Always start feedback location statements
+                                    with “In step 1, ” or “In Q1, ”
+                                </li>
+                                <li>
+                                    {" "}
+                                    Note that issues in rationales can be of
+                                    various kinds:
+                                </li>
+                                <ul>
+                                    <li>insufficient information,</li>
+                                    <li>irrelevant information,</li>
+                                    <li>
+                                        incorrect inferences drawn from the
+                                        context,
+                                    </li>
+                                    <li>
+                                        misinterpretation of the context etc.
+                                    </li>
+                                </ul>
+                                <li>
+                                    Describe the reason for why the rationale is
+                                    an issue
+                                </li>
+                            </ul>
+                            <li>
+                                {" "}
+                                <b>
+                                    Actionable suggestion feedback structure:{" "}
+                                </b>{" "}
+                                The rationale needs to [suggestion]
+                            </li>
+                            <li>
+                                Try not to only repeat what is already stated in
+                                the question or rationale. Instead, include some
+                                supplemental information based on the context
+                                that would guide the model towards the correct
+                                answer.{" "}
+                            </li>
+                        </ul>
                         <p>
                             For the above example where: <br></br>
-                            <br></br>Context:{" "}
-                            <i>
-                                Amy went to the supermarket and bought 3 apples
-                                and 2 pears. She then looked for some bread and
-                                cheese. She could not find bread but found
-                                herself some cheese. Just before getting to the
-                                checkout line, she bought a watermelon.
-                            </i>{" "}
-                            <br></br> Question: How many fruits did Amy buy?
-                            <br></br> Reference correct answer: 6<br></br>{" "}
-                            Predicted answer: 2<br></br> Rationale (Format:
-                            Markup and Mask):{" "}
-                            <b>1. Sentence from context with markup:</b> “She{" "}
-                            <b>[Amy]</b> then looked for some bread and cheese.”{" "}
-                        </p>
-                        <p>
-                            The feedback could say: <br></br>-{" "}
-                            <b>Location and description of error</b>:{" "}
-                            <i>
-                                In sentence 1, the information is not relevant
-                                to answering the question about how many fruits
-                                Amy bought.
-                            </i>{" "}
-                            <br></br>- <b>Actionable suggestion</b>:{" "}
-                            <i>
-                                The rationale needs to find how many apples,
-                                pears and watermelons Amy bought at the
-                                supermarket and sum them to find the total
-                                number of fruits she bought.
-                            </i>
-                        </p>
-                        <p style={{ color: "green" }}>
-                            <b>
-                                **Make sure to not include the correct answer in
-                                your feedback explicitly.**
-                            </b>
-                        </p>
+                            <br></br>
+                            <ul>
+                                <li>
+                                    {" "}
+                                    Context:{" "}
+                                    <i>
+                                        Amy went to the supermarket and bought 3
+                                        apples and 2 pears. She then looked for
+                                        some bread and cheese. She could not
+                                        find bread but found herself some
+                                        cheese. Just before getting to the
+                                        checkout line, she bought a watermelon.
+                                    </i>{" "}
+                                </li>
+                                <li>Question: How many fruits did Amy buy?</li>
+                                <li>
+                                    Reference correct answer: 6<br></br>
+                                </li>
+                                <li>
+                                    Predicted answer: 7<br></br>
+                                </li>{" "}
+                                <li>
+                                    Rationale (Format: Annotated Report):{" "}
+                                    <br></br>
+                                </li>
+                                <ul>
+                                    <li>
+                                        <b>1. Quote from context:</b> “bought 3
+                                        apples and 2 pears” <br></br>
+                                        <b>Annotation:</b> Amy bought 5 fruits
+                                        at first.
+                                    </li>
+                                    <li>
+                                        <b>2. Quote from context:</b> “looked
+                                        for some bread and cheese.” <br></br>
+                                        <b>Annotation:</b> Amy bought 2 more
+                                        fruits.
+                                    </li>
+                                </ul>
+                            </ul>
+                        </p>{" "}
+                        The <b>good</b> feedback for the example could be:{" "}
+                        <br></br>
+                        <ul>
+                            <li>
+                                <b>Location and description of error</b>:{" "}
+                                <i>
+                                    In step 2, the information is not relevant
+                                    to answering the question, as bread and
+                                    cheese are not fruits.
+                                </i>{" "}
+                            </li>
+                            <li>
+                                <b>Actionable suggestion</b>:{" "}
+                                <i>
+                                    The rationale needs to find how many
+                                    watermelons Amy picked up just before
+                                    getting to the checkout line and then sum
+                                    the count of all fruits to find the total
+                                    number of fruits she bought.
+                                </i>
+                            </li>
+                        </ul>
+                        The <b>bad</b> feedback for the example could be:{" "}
+                        <br></br>
+                        <ul>
+                            <li>
+                                <b>Location and description of error</b>:{" "}
+                                <i>
+                                    In step 2, the information is not relevant
+                                    to answering the question
+                                </i>{" "}
+                                -- this statement doesn’t really describe the
+                                error.
+                            </li>
+                            <li>
+                                <b>Actionable suggestion</b>:{" "}
+                                <i>
+                                    The rationale needs to find the total number
+                                    of fruits that Amy bought
+                                </i>{" "}
+                                -- this merely repeats the original question.
+                            </li>
+                        </ul>
                     </Alert>
                     <Answerbox
                         text="Location and description of error"

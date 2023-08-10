@@ -133,6 +133,20 @@ const AnnotationPage = (props) => {
             })
             .catch((error) => console.log(error));
 
+        if (
+            currentQuestion === data.length - 1 &&
+            currentRationale === data[currentQuestion].rationales.length - 1
+        ) {
+            axios
+                .patch(`/api/annotate/question/${data[currentQuestion]._id}`, {
+                    completed: true,
+                })
+                .then((response) => {
+                    // console.log(response);
+                })
+                .catch((error) => console.log(error));
+        }
+
         // rescroll & state updates
         setSeconds(endTime);
         setRationaleAnnotation(emptyRationale);

@@ -15,20 +15,13 @@ const WelcomePage = () => {
         axios
             .get(baseUrl)
             .then((response) => {
-                if (response.data.length === 0) {
+                if (response.data === null) {
                     setAlert(true);
                 } else {
-                    const todoQuestions = response.data.filter(
-                        (question) => !question.completed
-                    );
-                    console.log(todoQuestions);
-                    if (todoQuestions.length === 0) {
-                        navigate("/submission");
-                    } else {
-                        navigate("/questions", {
-                            state: { data: todoQuestions },
-                        });
-                    }
+                    const datalist = [response.data];
+                    navigate("/questions", {
+                        state: { data: datalist },
+                    });
                 }
             })
             .catch((error) => console.log(error));
@@ -40,12 +33,12 @@ const WelcomePage = () => {
                 <Alert
                     variant="danger"
                     style={{
-                        width: "50rem",
+                        width: "40rem",
                         marginTop: "20px",
                         textAlign: "left",
                     }}>
                     {" "}
-                    No questions match the provided ID in the database{" "}
+                    No questions in the database currently{" "}
                 </Alert>
             );
         }
