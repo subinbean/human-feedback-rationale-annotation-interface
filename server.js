@@ -35,20 +35,31 @@ app.get("/questions", (request, response) => {
 
 // get all questions and claim data from a specific annotator (given an id)
 app.get("/api/questions/:annotator_id", (request, response) => {
-    Question.find({ annotator_id: request.params.annotator_id })
-        .then((questions) => {
-            response.json(questions);
+    Question.findOne({ assigned: false })
+        .then((question) => {
+            Question.findByIdAndUpdate(question._id, {
+                $set: {
+                    assigned: true,
+                    annotator_id: request.params.annotator_id,
+                },
+            })
+                .then((result) => response.json(result))
+                .catch((error) => response.json(error));
         })
         .catch((error) => response.json(error));
 });
 
-// // complete question
-// app.patch('/api/annotate/question/:question_id', (request, response) => {
-//     const body = request.body
-//     Question.findByIdAndUpdate(request.params.question_id, {$set: {'completed' : body.completed, 'usefulness' : body.usefulness, 'revised_answer': body.revised_answer, 'time_spent': body.time_spent}}).then(question => {
-//         response.json(question)
-//     }).catch(error => response.json(error))
-// })
+// complete question
+app.patch("/api/annotate/question/:question_id", (request, response) => {
+    const body = request.body;
+    Question.findByIdAndUpdate(request.params.question_id, {
+        $set: { completed: body.completed },
+    })
+        .then((question) => {
+            response.json(question);
+        })
+        .catch((error) => response.json(error));
+});
 
 // annotate claim
 app.patch(

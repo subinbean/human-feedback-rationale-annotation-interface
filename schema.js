@@ -17,6 +17,7 @@ const rationale = new mongoose.Schema({
 
 const question = new mongoose.Schema({
     completed: Boolean,
+    assigned: Boolean,
     data_source: String,
     context: String,
     question: String,
@@ -26,4 +27,4 @@ const question = new mongoose.Schema({
     rationales: [rationale],
 });
 
-module.exports = mongoose.model("Question", question, "quoref_incorrect_pilot");
+module.exports = mongoose.model("Question", question, "quoref_incorrect");
