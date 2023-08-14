@@ -27,4 +27,4 @@ const question = new mongoose.Schema({
     rationales: [rationale],
 });
 
-module.exports = mongoose.model("Question", question, "quoref-incorrect");
+module.exports = mongoose.model("Question", question, "quoref_incorrect");
