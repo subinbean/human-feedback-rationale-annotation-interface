@@ -336,35 +336,6 @@ const RationaleAnswer = (props) => {
                 state={props.rationaleAnnotation}
                 setState={props.setRationaleAnnotation}
             />
-            <Alert
-                style={{
-                    width: "80%",
-                    marginTop: "20px",
-                    textAlign: "left",
-                }}>
-                <p>
-                    {" "}
-                    Now, you will be giving feedback for the rationale. Before
-                    you do, however, look at the predicted answer and see if
-                    it's actually <b>correct instead of incorrect.</b> We've
-                    tried our best, but there may be cases where the AI model
-                    has actually output the correct answer. If you think that's
-                    the case, mark <b>Yes</b> below, and for the following
-                    feedback portion,{" "}
-                    <b>
-                        locate, describe, and provide an actionable point of
-                        improvement (not error fix) for the rationale.
-                    </b>{" "}
-                </p>
-            </Alert>
-            <Likert
-                title="Is the predicted answer already correct?"
-                options={["Yes", "No"]}
-                toChange="predicted_answer_correct"
-                state={props.rationaleAnnotation}
-                setState={props.setRationaleAnnotation}
-            />
-
             <div>
                 <Alert
                     style={{
@@ -374,21 +345,18 @@ const RationaleAnswer = (props) => {
                     }}>
                     <p>
                         <h4> Feedback Instructions </h4> <br></br>
-                        <b>Feedback:</b> Now, you will need to provide natural
-                        language feedback for the rationale to help the AI model
-                        revise it. The feedback could target any missing
-                        information or any incorrect information in the
-                        rationale. The feedback should first 1){" "}
+                        <b>Feedback:</b> Now, you will need to provide feedback
+                        for the rationale. Imagine you are giving feedback to a
+                        student who is learning how to improve their reading
+                        comprehension. Your feedback should aim to give the{" "}
                         <b>
-                            locate the step in which the error(s) occurs{" "}
-                            <i>
-                                (locate the step or question number depending on
-                                the rationale format)
-                            </i>
-                            , and describe that error
+                            most useful statement(s) that would direct the
+                            student to the reference correct answer above.
                         </b>{" "}
-                        and 2) <b>provide an actionable suggestion</b> to fix
-                        the error.
+                        The feedback could target missing information or
+                        incorrect information in the rationale that caused the
+                        model to predict the incorrect answer. The feedback
+                        needs to be given in the following way:
                     </p>
                     <h6 style={{ color: "green" }}>
                         <b>**Instructions**</b>
@@ -419,14 +387,6 @@ const RationaleAnswer = (props) => {
                                 Note that issues in rationales can be of various
                                 kinds:
                             </li>
-                            <ul>
-                                <li>insufficient information,</li>
-                                <li>irrelevant information,</li>
-                                <li>
-                                    incorrect inferences drawn from the context,
-                                </li>
-                                <li>misinterpretation of the context etc.</li>
-                            </ul>
                             <li>
                                 Describe the reason for why the rationale is an
                                 issue
@@ -531,12 +491,83 @@ const RationaleAnswer = (props) => {
                         </li>
                     </ul>
                 </Alert>
+                <Alert
+                    style={{
+                        width: "80%",
+                        marginTop: "20px",
+                        textAlign: "left",
+                    }}>
+                    {" "}
+                    <p>
+                        1. Locate the error and list the step(s) (or question
+                        number depending on the rationale format) in which the
+                        error(s) occurs. For example, Procedural: “step 1”,
+                        Decision Tree: “Q1”.
+                    </p>
+                </Alert>
                 <Answerbox
-                    text="Location and description of error"
-                    state={props.rationaleAnnotation}
-                    setState={props.setRationaleAnnotation}
-                    toChange="nl_feedback_error"
+                    text="Location of Error"
+                    state={props.feedbackAnnotation}
+                    setState={props.setFeedbackAnnotation}
+                    toChange="location"
                 />
+                <Alert
+                    style={{
+                        width: "80%",
+                        marginTop: "20px",
+                        textAlign: "left",
+                    }}>
+                    <p>
+                        2. Identify type of error: Mention the type of the error
+                        you recognized. Note that issues in rationales can be of
+                        various kinds:
+                        <ul>
+                            <li>insufficient information</li>
+                            <li>irrelevant information</li>
+                            <li>incorrect inferences drawn from the context</li>
+                            <li>misinterpretation of the context etc.</li>
+                        </ul>
+                    </p>
+                </Alert>
+                <Answerbox
+                    text="Type of Error"
+                    state={props.feedbackAnnotation}
+                    setState={props.setFeedbackAnnotation}
+                    toChange="type"
+                />
+                <Alert
+                    style={{
+                        width: "80%",
+                        marginTop: "20px",
+                        textAlign: "left",
+                    }}>
+                    <p>
+                        3. Describe the error: Using concrete details from the
+                        rationale, question and context, provide a clear
+                        description of the error.
+                    </p>
+                </Alert>
+                <Answerbox
+                    text="Description of Error"
+                    state={props.feedbackAnnotation}
+                    setState={props.setFeedbackAnnotation}
+                    toChange="description"
+                />
+                <Alert
+                    style={{
+                        width: "80%",
+                        marginTop: "20px",
+                        textAlign: "left",
+                    }}>
+                    <p>
+                        4. Provide an actionable suggestion to fix the error:
+                        Using concrete details from the rationale, question and
+                        context, provide an actionable edit that would fix the
+                        rationale and cause the model to predict the correct
+                        answer. Follow this format: The rationale needs to
+                        [suggestion].
+                    </p>
+                </Alert>
                 <Answerbox
                     text="Actionable suggestion"
                     state={props.rationaleAnnotation}

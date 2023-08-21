@@ -17,14 +17,19 @@ const AnnotationPage = (props) => {
     const emptyRationale = {
         sufficiency: "",
         faithfulness: "",
-        predicted_answer_correct: "No",
         nl_feedback_error: "",
         nl_feedback_fix: "",
         feedback_ease: "",
         time_taken: 0,
     };
+    const emptyFeedback = {
+        location: "",
+        type: "",
+        description: "",
+    };
     const [rationaleAnnotation, setRationaleAnnotation] =
         useState(emptyRationale);
+    const [feedbackAnnotation, setFeedbackAnnotation] = useState(emptyFeedback);
     const [missingFields, setMissingFields] = useState([]);
 
     useEffect(() => {
@@ -92,23 +97,23 @@ const AnnotationPage = (props) => {
         const mapping = {
             sufficiency: "Sufficiency",
             faithfulness: "Faithfulness",
-            predicted_answer_correct: "Is the predicted answer right?",
-            nl_feedback_error: "Location and description of error",
             nl_feedback_fix: "Actionable suggestion",
+            location: "Location of Error",
+            type: "Type of Error",
+            description: "Description of Error",
             feedback_ease: "Ease of Providing Feedback",
         };
         for (var field in rationaleAnnotation) {
-            if (rationaleAnnotation["predicted_answer_correct"] === "Yes") {
-                if (
-                    field === "nl_feedback_error" ||
-                    field === "nl_feedback_fix" ||
-                    field === "feedback_ease"
-                ) {
-                    continue;
-                }
+            if (field === "nl_feedback_error") {
+                continue;
             }
             if (rationaleAnnotation[field] === "") {
                 new_array.push(mapping[field]);
+            }
+        }
+        for (var component in feedbackAnnotation) {
+            if (feedbackAnnotation[field] === "") {
+                new_array.push(mapping[component]);
             }
         }
         setMissingFields(new_array);
@@ -223,6 +228,8 @@ const AnnotationPage = (props) => {
                     currentRationale={currentRationale}
                     rationaleAnnotation={rationaleAnnotation}
                     setRationaleAnnotation={setRationaleAnnotation}
+                    feedbackAnnotation={feedbackAnnotation}
+                    setFeedbackAnnotation={setFeedbackAnnotation}
                     context={data[currentQuestion].context}
                     question={data[currentQuestion].question}
                 />
