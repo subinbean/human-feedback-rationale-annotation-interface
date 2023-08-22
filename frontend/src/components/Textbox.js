@@ -35,8 +35,6 @@ const Textbox = (props) => {
         }
     };
     const displayRationale = () => {
-        console.log(props.text);
-        console.log(props.format);
         switch (props.format) {
             case "markup_mask":
                 const m_result = [];
@@ -107,7 +105,6 @@ const Textbox = (props) => {
             case "subquestions":
                 const s_result = [];
                 const s_parsed = props.text.split("\n");
-                console.log(s_parsed);
                 for (const i in s_parsed) {
                     if (s_parsed[i] === "") {
                         continue;

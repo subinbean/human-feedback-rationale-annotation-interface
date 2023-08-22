@@ -112,10 +112,11 @@ const AnnotationPage = (props) => {
             }
         }
         for (var component in feedbackAnnotation) {
-            if (feedbackAnnotation[field] === "") {
+            if (feedbackAnnotation[component] === "") {
                 new_array.push(mapping[component]);
             }
         }
+        console.log(new_array);
         setMissingFields(new_array);
         if (new_array.length > 0) {
             return;
@@ -130,6 +131,7 @@ const AnnotationPage = (props) => {
                 `/api/annotate/question/${data[currentQuestion]._id}/rationale/${currentRationale}`,
                 {
                     ...rationaleAnnotation,
+                    nl_feedback_error: `<Location>${feedbackAnnotation["location"]}<Type>${feedbackAnnotation["type"]}<Description>${feedbackAnnotation["description"]}`,
                     time_taken: endTime - seconds,
                 }
             )
@@ -155,6 +157,7 @@ const AnnotationPage = (props) => {
         // rescroll & state updates
         setSeconds(endTime);
         setRationaleAnnotation(emptyRationale);
+        setFeedbackAnnotation(emptyFeedback);
         updateStateOnSubmission();
     };
 
