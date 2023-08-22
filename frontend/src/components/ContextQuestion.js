@@ -73,6 +73,45 @@ const showExampleText = () => {
                 the example again, you can always click the button again to
                 "Show Example" :)
             </p>
+            <p>
+                For the above example where: <br></br>
+                <br></br>
+                <ul>
+                    <li>
+                        {" "}
+                        Context:{" "}
+                        <i>
+                            Amy went to the supermarket and bought 3 apples and
+                            2 pears. She then looked for some bread and cheese.
+                            She could not find bread but found herself some
+                            cheese. Just before getting to the checkout line,
+                            she bought a watermelon.
+                        </i>{" "}
+                    </li>
+                    <li>Question: How many fruits did Amy buy?</li>
+                    <li>
+                        Reference correct answer: 6<br></br>
+                    </li>
+                    <li>
+                        Predicted answer: 7<br></br>
+                    </li>{" "}
+                    <li>
+                        Rationale (Format: Annotated Report): <br></br>
+                    </li>
+                    <ul>
+                        <li>
+                            <b>1. Quote from context:</b> “bought 3 apples and 2
+                            pears” <br></br>
+                            <b>Annotation:</b> Amy bought 5 fruits at first.
+                        </li>
+                        <li>
+                            <b>2. Quote from context:</b> “looked for some bread
+                            and cheese.” <br></br>
+                            <b>Annotation:</b> Amy bought 2 more fruits.
+                        </li>
+                    </ul>
+                </ul>
+            </p>{" "}
         </div>
         // </Alert>
     );
