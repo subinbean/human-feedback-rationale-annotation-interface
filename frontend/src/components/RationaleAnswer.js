@@ -196,7 +196,7 @@ const RationaleAnswer = (props) => {
                 text={props.correct_answer}
             />
             <Textbox
-                title="Predicted Incorrect Answer"
+                title="Generated Incorrect Answer"
                 text={props.predicted_answer}
             />
             <Alert
@@ -332,11 +332,32 @@ const RationaleAnswer = (props) => {
                     }}>
                     {" "}
                     <p>
-                        <b>1. Locate the error </b> and list the step(s) (or
+                        <b>1. Locate the error </b> by listing the step(s) (or
                         question number depending on the rationale format) in
-                        which the error(s) occurs:
+                        which the error(s) occurs in the following manner:
                         <ul>
-                            <li> hey</li>
+                            <li>
+                                {" "}
+                                <b>Markup and Mask:</b> Step X (e.g Step 1, Step
+                                2)
+                            </li>
+                            <li>
+                                {" "}
+                                <b>Annotated Report:</b> Step X (e.g Step 1,
+                                Step 2){" "}
+                            </li>
+                            <li>
+                                {" "}
+                                <b>Procedural:</b> Step X (e.g Step 1, Step 2){" "}
+                            </li>
+                            <li>
+                                {" "}
+                                <b>Subquestions:</b> QX (e.g Q1, Q2){" "}
+                            </li>
+                            <li>
+                                {" "}
+                                <b>Decision Tree:</b> QX-Yes/No (e.g Q1-Yes)
+                            </li>
                         </ul>
                     </p>
                 </Alert>
@@ -365,21 +386,20 @@ const RationaleAnswer = (props) => {
                         </ul>
                     </p>
                     <p>
-                        The <b>good</b> feedback for the example could be:{" "}
-                        <br></br>{" "}
+                        The <b>good</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>{" "}
                         <ul>
                             <li>
                                 {" "}
                                 Type of error: the information is not relevant
-                                to answering the question.
+                                to answering the question and the inference
+                                drawn from the context is incorrect.
                             </li>
                         </ul>
-                        The <b>bad</b> feedback for the example could be:{" "}
-                        <br></br>
+                        The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>
                         <ul>
-                            <li>
-                                Type of error: the information is not correct.
-                            </li>
+                            <li>Type of error: the rationale is bad.</li>
                         </ul>
                     </p>
                 </Alert>
@@ -397,43 +417,53 @@ const RationaleAnswer = (props) => {
                     }}>
                     <p>
                         <b>3. Describe the error:</b> Using{" "}
-                        <b>concrete details</b> from the rationale, question and
-                        context, provide a clear description of the error.
-                        <br></br> Make sure to:
+                        <b>concrete details</b> from the rationale, question,
+                        and context, provide a clear description of the error.
+                        <br></br> <br></br>Remember:
                         <ul>
                             <li>
                                 {" "}
-                                Make sure to not include the correct answer
-                                anywhere in your feedback explicitly.{" "}
+                                <b>
+                                    Make sure to not include the correct answer
+                                    anywhere
+                                </b>{" "}
+                                in your feedback explicitly.{" "}
                             </li>
                             <li>
                                 {" "}
-                                Try not to only repeat what is already stated in
-                                the question or rationale. Instead, include some
-                                supplemental information based on the context
+                                <b>
+                                    Try not to only repeat what is already
+                                    stated in the question or rationale.
+                                </b>{" "}
+                                Instead,{" "}
+                                <b>
+                                    include some supplemental information based
+                                    on the context{" "}
+                                </b>
                                 that would guide the model towards the correct
                                 answer.
                             </li>
                         </ul>
                     </p>
                     <p>
-                        The <b>good</b> feedback for the example could be:{" "}
-                        <br></br>{" "}
+                        The <b>good</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>{" "}
                         <ul>
                             <li>
                                 {" "}
                                 Description of error: bread and cheese are not
-                                fruits.
+                                fruits, and the question asks about the number
+                                of fruits Amy bought
                             </li>
                         </ul>
-                        The <b>bad</b> feedback for the example could be:{" "}
-                        <br></br>
+                        The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>
                         <ul>
                             <li>
                                 Description of error: It is not relevant --{" "}
                                 <i>
-                                    this statement doesn’t really describe the
-                                    error.
+                                    This statement doesn’t really describe the
+                                    error using any concrete details.
                                 </i>
                             </li>
                         </ul>
@@ -460,28 +490,40 @@ const RationaleAnswer = (props) => {
                         question and context, provide an <b>actionable edit</b>{" "}
                         that would fix the rationale and cause the model to
                         predict the correct answer. <br></br>
-                        <b>Follow this format:</b> The rationale needs to
-                        [suggestion].
-                        <br></br> Make sure to:
+                        <br></br> Remember:
                         <ul>
                             <li>
                                 {" "}
-                                Make sure to not include the correct answer
-                                anywhere in your feedback explicitly.{" "}
+                                <b>Follow this format:</b> The rationale needs
+                                to [suggestion].
                             </li>
                             <li>
                                 {" "}
-                                Try not to only repeat what is already stated in
-                                the question or rationale. Instead, include some
-                                supplemental information based on the context
+                                <b>
+                                    Make sure to not include the correct answer
+                                    anywhere
+                                </b>{" "}
+                                in your feedback explicitly.{" "}
+                            </li>
+                            <li>
+                                {" "}
+                                <b>
+                                    Try not to only repeat what is already
+                                    stated in the question or rationale.
+                                </b>{" "}
+                                Instead,{" "}
+                                <b>
+                                    include some supplemental information based
+                                    on the context{" "}
+                                </b>
                                 that would guide the model towards the correct
                                 answer.
                             </li>
                         </ul>
                     </p>
                     <p>
-                        The <b>good</b> feedback for the example could be:{" "}
-                        <br></br>{" "}
+                        The <b>good</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>{" "}
                         <ul>
                             <li>
                                 Actionable suggestion: The rationale needs to
@@ -491,8 +533,8 @@ const RationaleAnswer = (props) => {
                                 of fruits she bought.
                             </li>
                         </ul>
-                        The <b>bad</b> feedback for the example could be:{" "}
-                        <br></br>
+                        The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
+                        example could be: <br></br>
                         <ul>
                             <li>
                                 Actionable suggestion: The rationale needs to
