@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.6e5b0a54.css",
-    "main.js": "/static/js/main.9650575c.js",
+    "main.js": "/static/js/main.6b52d445.js",
     "static/media/upenn.png": "/static/media/upenn.b4db3466666c4e80bd7e.png",
     "index.html": "/index.html",
     "main.6e5b0a54.css.map": "/static/css/main.6e5b0a54.css.map",
-    "main.9650575c.js.map": "/static/js/main.9650575c.js.map"
+    "main.6b52d445.js.map": "/static/js/main.6b52d445.js.map"
   },
   "entrypoints": [
     "static/css/main.6e5b0a54.css",
-    "static/js/main.9650575c.js"
+    "static/js/main.6b52d445.js"
   ]
 }
