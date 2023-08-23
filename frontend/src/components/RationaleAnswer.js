@@ -359,7 +359,8 @@ const RationaleAnswer = (props) => {
                                 <b>Decision Tree:</b> QX-Yes/No (e.g Q1-Yes)
                             </li>
                         </ul>
-                        Note: You <b>only</b> need to mention the location here
+                        Note: You <b>only</b> need to mention the location here,
+                        no need to include the name of the rationale format
                     </p>
                 </Alert>
                 <Answerbox
