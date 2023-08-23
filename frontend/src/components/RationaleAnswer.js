@@ -359,6 +359,7 @@ const RationaleAnswer = (props) => {
                                 <b>Decision Tree:</b> QX-Yes/No (e.g Q1-Yes)
                             </li>
                         </ul>
+                        Note: You <b>only</b> need to mention the location here
                     </p>
                 </Alert>
                 <Answerbox
@@ -391,15 +392,15 @@ const RationaleAnswer = (props) => {
                         <ul>
                             <li>
                                 {" "}
-                                Type of error: the information is not relevant
-                                to answering the question and the inference
-                                drawn from the context is incorrect.
+                                The information is not relevant to answering the
+                                question and the inference drawn from the
+                                context is incorrect.
                             </li>
                         </ul>
                         The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
                         example could be: <br></br>
                         <ul>
-                            <li>Type of error: the rationale is bad.</li>
+                            <li>The rationale is bad.</li>
                         </ul>
                     </p>
                 </Alert>
@@ -451,16 +452,16 @@ const RationaleAnswer = (props) => {
                         <ul>
                             <li>
                                 {" "}
-                                Description of error: bread and cheese are not
-                                fruits, and the question asks about the number
-                                of fruits Amy bought
+                                Bread and cheese are not fruits, and the
+                                question asks about the number of fruits Amy
+                                bought
                             </li>
                         </ul>
                         The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
                         example could be: <br></br>
                         <ul>
                             <li>
-                                Description of error: It is not relevant --{" "}
+                                It is not relevant --{" "}
                                 <i>
                                     This statement doesn’t really describe the
                                     error using any concrete details.
@@ -526,20 +527,19 @@ const RationaleAnswer = (props) => {
                         example could be: <br></br>{" "}
                         <ul>
                             <li>
-                                Actionable suggestion: The rationale needs to
-                                find how many watermelons Amy picked up just
-                                before getting to the checkout line and then sum
-                                the count of all fruits to find the total number
-                                of fruits she bought.
+                                The rationale needs to find how many watermelons
+                                Amy picked up just before getting to the
+                                checkout line and then sum the count of all
+                                fruits to find the total number of fruits she
+                                bought.
                             </li>
                         </ul>
                         The <b>bad</b> feedback for the <i>Amy buys fruits</i>{" "}
                         example could be: <br></br>
                         <ul>
                             <li>
-                                Actionable suggestion: The rationale needs to
-                                find the total number of fruits that Amy bought
-                                --{" "}
+                                The rationale needs to find the total number of
+                                fruits that Amy bought --{" "}
                                 <i>this merely repeats the original question</i>
                                 .
                             </li>
