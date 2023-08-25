@@ -15,21 +15,15 @@ const AnnotationPage = (props) => {
     const [currentRationale, setCurrentRationale] = useState(0);
 
     const emptyRationale = {
-        sufficiency: "",
-        faithfulness: "",
+        interpretability: "",
+        trustworthiness: "",
         nl_feedback_error: "",
         nl_feedback_fix: "",
         feedback_ease: "",
         time_taken: 0,
     };
-    const emptyFeedback = {
-        location: "",
-        type: "",
-        description: "",
-    };
     const [rationaleAnnotation, setRationaleAnnotation] =
         useState(emptyRationale);
-    const [feedbackAnnotation, setFeedbackAnnotation] = useState(emptyFeedback);
     const [missingFields, setMissingFields] = useState([]);
 
     useEffect(() => {
@@ -111,11 +105,6 @@ const AnnotationPage = (props) => {
                 new_array.push(mapping[field]);
             }
         }
-        for (var component in feedbackAnnotation) {
-            if (feedbackAnnotation[component] === "") {
-                new_array.push(mapping[component]);
-            }
-        }
         console.log(new_array);
         setMissingFields(new_array);
         if (new_array.length > 0) {
@@ -131,7 +120,6 @@ const AnnotationPage = (props) => {
                 `/api/annotate/question/${data[currentQuestion]._id}/rationale/${currentRationale}`,
                 {
                     ...rationaleAnnotation,
-                    nl_feedback_error: `<Location>${feedbackAnnotation["location"]}<Type>${feedbackAnnotation["type"]}<Description>${feedbackAnnotation["description"]}`,
                     time_taken: endTime - seconds,
                 }
             )
@@ -157,7 +145,6 @@ const AnnotationPage = (props) => {
         // rescroll & state updates
         setSeconds(endTime);
         setRationaleAnnotation(emptyRationale);
-        setFeedbackAnnotation(emptyFeedback);
         updateStateOnSubmission();
     };
 
@@ -231,8 +218,6 @@ const AnnotationPage = (props) => {
                     currentRationale={currentRationale}
                     rationaleAnnotation={rationaleAnnotation}
                     setRationaleAnnotation={setRationaleAnnotation}
-                    feedbackAnnotation={feedbackAnnotation}
-                    setFeedbackAnnotation={setFeedbackAnnotation}
                     context={data[currentQuestion].context}
                     question={data[currentQuestion].question}
                 />

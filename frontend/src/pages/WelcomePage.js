@@ -68,11 +68,12 @@ const WelcomePage = () => {
                             group of researchers at the University of
                             Pennsylvania conducting a study to understand how to
                             present answers from AI systems / language models to
-                            end users such that they are interpretable,
-                            trustworthy, and easy to repair through human
+                            end users, such that they are interpretable,
+                            trustworthy and easy to repair through human
                             feedback. We are inviting participants who are
                             interested in helping build more reliable AI systems
-                            that can improve through user interactions.
+                            that can improve through their interactions with
+                            users.
                         </p>
                         <p style={{ marginTop: "3rem" }}>
                             Please enter your prolific ID down below to begin
