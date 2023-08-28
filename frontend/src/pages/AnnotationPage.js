@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ContextQuestion from "../components/ContextQuestion";
 import "./pagesStyle.css";
 import RationaleAnswer from "../components/RationaleAnswer";
+import FeedbackSliders from "../components/FeedbackSliders";
 import { Button, Alert, ProgressBar } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -13,13 +14,11 @@ const AnnotationPage = (props) => {
     const [seconds, setSeconds] = useState();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [currentRationale, setCurrentRationale] = useState(0);
+    const [feedbackValues, setFeedbackValues] = useState([3, 3, 3, 3, 3]);
 
     const emptyRationale = {
         interpretability: "",
         trustworthiness: "",
-        nl_feedback_error: "",
-        nl_feedback_fix: "",
-        feedback_ease: "",
         time_taken: 0,
     };
     const [rationaleAnnotation, setRationaleAnnotation] =
@@ -33,13 +32,11 @@ const AnnotationPage = (props) => {
     const buttonInstructions = () => {
         if (currentRationale < data[currentQuestion].rationales.length - 1) {
             return <div> Move onto the next rationale below! </div>;
-        } else if (currentQuestion < data.length - 1) {
-            return (
-                <div>
-                    {" "}
-                    Submit your final rationale and move onto the next question!
-                </div>
-            );
+        } else if (
+            currentRationale ===
+            data[currentQuestion].rationales.length - 1
+        ) {
+            return <div> Submit your final rationale!</div>;
         } else {
             return (
                 <div>
@@ -62,14 +59,17 @@ const AnnotationPage = (props) => {
                     Submit rationale{" "}
                 </Button>
             );
-        } else if (currentQuestion < data.length - 1) {
+        } else if (
+            currentRationale ===
+            data[currentQuestion].rationales.length - 1
+        ) {
             return (
                 <Button
                     variant="outline-primary"
                     style={{ marginLeft: "170px" }}
                     onClick={buttonAction}>
                     {" "}
-                    Submit question{" "}
+                    Submit final rationale{" "}
                 </Button>
             );
         } else {
@@ -89,18 +89,10 @@ const AnnotationPage = (props) => {
         // validation logic
         const new_array = [];
         const mapping = {
-            sufficiency: "Sufficiency",
-            faithfulness: "Faithfulness",
-            nl_feedback_fix: "Actionable suggestion",
-            location: "Location of Error",
-            type: "Type of Error",
-            description: "Description of Error",
-            feedback_ease: "Ease of Providing Feedback",
+            interpretability: "Interpretability",
+            trustworthiness: "Trustworthiness",
         };
         for (var field in rationaleAnnotation) {
-            if (field === "nl_feedback_error") {
-                continue;
-            }
             if (rationaleAnnotation[field] === "") {
                 new_array.push(mapping[field]);
             }
@@ -115,22 +107,23 @@ const AnnotationPage = (props) => {
 
         const endTime = new Date();
         // api call
-        axios
-            .patch(
-                `/api/annotate/question/${data[currentQuestion]._id}/rationale/${currentRationale}`,
-                {
-                    ...rationaleAnnotation,
-                    time_taken: endTime - seconds,
-                }
-            )
-            .then((response) => {
-                // console.log(response);
-            })
-            .catch((error) => console.log(error));
+        if (currentRationale < data[currentQuestion].rationales.length)
+            axios
+                .patch(
+                    `/api/annotate/question/${data[currentQuestion]._id}/rationale/${currentRationale}`,
+                    {
+                        ...rationaleAnnotation,
+                        time_taken: endTime - seconds,
+                    }
+                )
+                .then((response) => {
+                    // console.log(response);
+                })
+                .catch((error) => console.log(error));
 
         if (
-            currentQuestion === data.length - 1 &&
-            currentRationale === data[currentQuestion].rationales.length - 1
+            currentQuestion < data.length &&
+            currentRationale === data[currentQuestion].rationales.length
         ) {
             axios
                 .patch(`/api/annotate/question/${data[currentQuestion]._id}`, {
@@ -157,14 +150,20 @@ const AnnotationPage = (props) => {
         }
         // submit question
         else {
-            if (currentQuestion < data.length - 1) {
+            if (
+                currentRationale ===
+                data[currentQuestion].rationales.length - 1
+            ) {
                 // rescroll & state updates
-                setCurrentRationale(0);
-                setCurrentQuestion(currentQuestion + 1);
-                window.scrollTo(0, 0);
+                setCurrentRationale(currentRationale + 1);
+                const element = document.getElementById(
+                    "rationale-answer-section"
+                );
+                element.scrollIntoView({ behavior: "smooth" });
             }
             // submit final question
             else {
+                setCurrentQuestion(currentQuestion + 1);
                 navigate("/submission");
             }
         }
@@ -210,7 +209,6 @@ const AnnotationPage = (props) => {
                         data[currentQuestion].rationales[currentRationale]
                             .rationale_format
                     }
-                    correct_answer={data[currentQuestion].reference_answer}
                     predicted_answer={
                         data[currentQuestion].rationales[currentRationale]
                             .predicted_answer
@@ -280,8 +278,17 @@ const AnnotationPage = (props) => {
                     interface, just click on the link again and provide your ID.{" "}
                 </p>
             </Alert>
-            <ContextQuestion />
-            {renderRationaleAnswer()}
+            {currentRationale < data[currentQuestion].rationales.length ? (
+                <div>
+                    <ContextQuestion />
+                    {renderRationaleAnswer()}
+                </div>
+            ) : (
+                <FeedbackSliders
+                    feedbackValues={feedbackValues}
+                    setFeedbackValues={setFeedbackValues}
+                />
+            )}
             <Alert
                 style={{
                     width: "80%",

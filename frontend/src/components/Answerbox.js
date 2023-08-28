@@ -32,16 +32,8 @@ const Answerbox = (props) => {
                             <Form.Control
                                 as="textarea"
                                 style={{
-                                    width:
-                                        props.toChange === "location" ||
-                                        props.toChange === "type"
-                                            ? "50%"
-                                            : "80%",
-                                    height:
-                                        props.toChange === "location" ||
-                                        props.toChange === "type"
-                                            ? "2rem"
-                                            : "5rem",
+                                    width: "80%",
+                                    height: "5rem",
                                 }}
                                 value={props.state[props.toChange]}
                                 onChange={changeFunction}

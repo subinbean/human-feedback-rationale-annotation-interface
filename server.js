@@ -69,13 +69,8 @@ app.patch(
         const body = request.body;
         Question.findByIdAndUpdate(request.params.question_id, {
             $set: {
-                [key + ".sufficiency"]: body.sufficiency,
-                [key + ".faithfulness"]: body.faithfulness,
-                [key + ".predicted_answer_correct"]:
-                    body.predicted_answer_correct,
-                [key + ".nl_feedback_error"]: body.nl_feedback_error,
-                [key + ".nl_feedback_fix"]: body.nl_feedback_fix,
-                [key + ".feedback_ease"]: body.feedback_ease,
+                [key + ".interpretability"]: body.interpretability,
+                [key + ".trustworthiness"]: body.trustworthiness,
                 [key + ".time_taken"]: body.time_taken,
             },
         })
