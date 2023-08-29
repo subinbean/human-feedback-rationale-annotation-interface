@@ -251,7 +251,7 @@ const AnnotationPage = (props) => {
                 }}>
                 <p>
                     {" "}
-                    <h3> Providing Feedback for AI Outputs </h3>
+                    <h3> Evaluating Rationales from AI Models</h3>
                 </p>
                 <p>
                     This task has <b> {data.length} questions. </b>

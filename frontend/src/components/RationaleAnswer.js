@@ -191,7 +191,7 @@ const RationaleAnswer = (props) => {
                 format={props.rationale_format}
             />
             <Textbox
-                title="Predicted Correct Answer"
+                title="Generated Correct Answer"
                 text={props.predicted_answer}
             />
             <Alert
@@ -208,23 +208,26 @@ const RationaleAnswer = (props) => {
                     <b>1. Interpretability:</b> How beneficial is the rationale
                     in helping you understand the reasoning process followed by
                     the AI model to answer the question?
+                    <br></br>
+                    <br></br>
                     <ol type="a">
                         <li>
-                            Very beneficial: The rationale is{" "}
+                            <b>Very beneficial:</b> The rationale is{" "}
                             <b>extremely helpful</b> in providing a clear and
                             logical description of the model’s reasoning
                             process.
                         </li>
                         <li>
-                            A bit beneficial: The rationale is <b>helpful</b> in
-                            understanding the model’s reasoning, but there are{" "}
+                            <b>A bit beneficial:</b> The rationale is{" "}
+                            <b>helpful</b> in understanding the model’s
+                            reasoning, but there are{" "}
                             <b>
                                 some gaps in the reasoning and some other
                                 details are unclear.
                             </b>
                         </li>
                         <li>
-                            Not beneficial at all: The rationale{" "}
+                            <b>Not beneficial at all:</b> The rationale{" "}
                             <b>provides little to no benefit</b> in helping me
                             understand how the model came up with the answer.
                         </li>
@@ -252,25 +255,29 @@ const RationaleAnswer = (props) => {
                     <b>2. Trustworthiness:</b> How likely are you to trust the
                     model’s answer, if the rationale was provided along with the
                     answer?
+                    <br></br>
+                    <br></br>
                     <ol type="a">
                         <li>
-                            Very likely: The rationale seems very trustworthy in
-                            supporting how the answer was determined.
+                            <b>Very likely:</b> The rationale seems{" "}
+                            <b>very trustworthy</b> in supporting how the answer
+                            was determined.
                         </li>
                         <li>
-                            A bit likely: The rationale provides some support
-                            for the answer, but I cannot completely trust the
-                            answer only based on this rationale.
+                            <b>A bit likely:</b> The rationale provides{" "}
+                            <b>some support</b> for the answer, but I cannot
+                            completely trust the answer only based on this
+                            rationale.
                         </li>
                         <li>
-                            A bit unlikely: The rationale provides very little
-                            support for the answer, which makes the answer not
-                            easy to trust.
+                            <b>A bit unlikely:</b> The rationale provides{" "}
+                            <b>very little support</b> for the answer, which
+                            makes the answer not easy to trust.
                         </li>
                         <li>
-                            Not likely at all: The rationale provides almost no
-                            support for helping me trust the way the answer was
-                            determined.
+                            <b>Not likely at all:</b> The rationale provides{" "}
+                            <b>almost no support</b> for helping me trust the
+                            way the answer was determined.
                         </li>
                     </ol>
                 </p>

@@ -17,7 +17,7 @@ const navbar = () => {
                         />
                         <div style={{ marginLeft: "-2px" }}>
                             {" "}
-                            Providing Feedback for AI Outputs{" "}
+                            Evaluating Rationales from AI Models{" "}
                         </div>
                     </div>
                 </Navbar.Brand>

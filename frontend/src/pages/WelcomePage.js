@@ -54,7 +54,7 @@ const WelcomePage = () => {
                         {" "}
                         <b>
                             {" "}
-                            User Study - Providing Feedback for AI Outputs{" "}
+                            User Study - Evaluating Rationales from AI Models{" "}
                         </b>{" "}
                     </Card.Title>
                     <Card.Text
