@@ -235,7 +235,7 @@ const RationaleAnswer = (props) => {
                 </p>
             </Alert>
             <Likert
-                title="Interpertability"
+                title="Interpretability"
                 options={[
                     "Very beneficial",
                     "A bit beneficial",
