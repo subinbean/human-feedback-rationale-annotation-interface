@@ -16,6 +16,7 @@ const AnnotationPage = (props) => {
     const [currentRationale, setCurrentRationale] = useState(0);
     const [feedbackValues, setFeedbackValues] = useState([3, 3, 3, 3, 3]);
 
+    console.log(feedbackValues);
     const emptyRationale = {
         interpretability: "",
         trustworthiness: "",
@@ -86,23 +87,24 @@ const AnnotationPage = (props) => {
     };
 
     const buttonAction = () => {
-        // validation logic
-        const new_array = [];
-        const mapping = {
-            interpretability: "Interpretability",
-            trustworthiness: "Trustworthiness",
-        };
-        for (var field in rationaleAnnotation) {
-            if (rationaleAnnotation[field] === "") {
-                new_array.push(mapping[field]);
+        if (currentRationale < data[currentQuestion].rationales.length) {
+            // validation logic
+            const new_array = [];
+            const mapping = {
+                interpretability: "Interpretability",
+                trustworthiness: "Trustworthiness",
+            };
+            for (var field in rationaleAnnotation) {
+                if (rationaleAnnotation[field] === "") {
+                    new_array.push(mapping[field]);
+                }
+            }
+            console.log(new_array);
+            setMissingFields(new_array);
+            if (new_array.length > 0) {
+                return;
             }
         }
-        console.log(new_array);
-        setMissingFields(new_array);
-        if (new_array.length > 0) {
-            return;
-        }
-
         console.log(rationaleAnnotation);
 
         const endTime = new Date();
@@ -127,6 +129,7 @@ const AnnotationPage = (props) => {
         ) {
             axios
                 .patch(`/api/annotate/question/${data[currentQuestion]._id}`, {
+                    comments: feedbackValues.join(),
                     completed: true,
                 })
                 .then((response) => {
@@ -156,10 +159,7 @@ const AnnotationPage = (props) => {
             ) {
                 // rescroll & state updates
                 setCurrentRationale(currentRationale + 1);
-                const element = document.getElementById(
-                    "rationale-answer-section"
-                );
-                element.scrollIntoView({ behavior: "smooth" });
+                window.scrollTo(0, 0);
             }
             // submit final question
             else {

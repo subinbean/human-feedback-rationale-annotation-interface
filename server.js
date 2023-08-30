@@ -53,7 +53,7 @@ app.get("/api/questions/:annotator_id", (request, response) => {
 app.patch("/api/annotate/question/:question_id", (request, response) => {
     const body = request.body;
     Question.findByIdAndUpdate(request.params.question_id, {
-        $set: { completed: body.completed },
+        $set: { comments: body.comments, completed: body.completed },
     })
         .then((question) => {
             response.json(question);
