@@ -71,6 +71,7 @@ const WelcomePage = () => {
                             end users, such that they are interpretable,
                             trustworthy and easy to repair through human
                             feedback. We are inviting participants who are
+                            experts in the medicine / healthcare fields and are
                             interested in helping build more reliable AI systems
                             that can improve through their interactions with
                             users.
