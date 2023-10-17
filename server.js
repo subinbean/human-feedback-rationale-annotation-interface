@@ -35,7 +35,7 @@ app.get("/questions", (request, response) => {
 
 // get all questions and claim data from a specific annotator (given an id)
 app.get("/api/questions/:annotator_id", (request, response) => {
-    Question.findOne({ assigned: true })
+    Question.findOne({ assigned: false })
         .then((question) => {
             Question.findByIdAndUpdate(question._id, {
                 $set: {
